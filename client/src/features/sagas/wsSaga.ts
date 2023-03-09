@@ -5,7 +5,7 @@ import { takeEvery, call, put, take } from "redux-saga/effects";
 import type { WsActionTypes } from "../../types/wsTypes";
 import { SOCKET_CLOSE, SOCKET_INIT, SOCKET_CONNECT } from "../../types/wsTypes";
 import { wsCloseAction, wsConnectAction, wsInitAction } from "../actions/wsActions";
-import { setOnline } from "../wsSlice";
+import { setOnline } from "../slices/wsSlice";
 
 
 function createSocketChannel(socket: WebSocket) :EventChannel<WsActionTypes> {
