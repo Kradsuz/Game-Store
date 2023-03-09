@@ -26,16 +26,17 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (name: string, email: string, password: string) => void;
 };
 
 function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(email, password);
+    onSubmit(name, email, password);
   };
 
   return (
@@ -50,11 +51,24 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               margin="normal"
               required
               fullWidth
+              id="name"
+              label="Введите ник"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               id="email"
-              label="Введите почту"
+              label="Введите ваш email"
               name="email"
               autoComplete="email"
-              autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -65,7 +79,7 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               required
               fullWidth
               name="password"
-              label="Введи пароль"
+              label="Введите пароль"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -87,13 +101,17 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
   );
 }
 
-type AuthPageProps = {
+type RegisterPageProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (name: string, email: string, password: string) => void;
 };
 
-export default function AuthPage({ title, submitButtonText, onSubmit }: AuthPageProps) {
+export default function RegisterPage({
+  title,
+  submitButtonText,
+  onSubmit,
+}: RegisterPageProps) {
   return (
     <AuthPageContainer>
       <AuthForm
