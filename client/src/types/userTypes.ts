@@ -5,13 +5,13 @@ export type UserFromBackand = {
 
 export type UserLoginForm = {
   email: string;
-  password: string;
+  pass: string;
 };
 
 export type UserSubmitForm = {
   email: string;
   name: string;
-  password: string;
+  pass: string;
 };
 
 export type UserType = {
