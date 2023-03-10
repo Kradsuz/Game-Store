@@ -1,6 +1,6 @@
 export type UserFromBackand = {
   id: number;
-  name: string;
+  username: string;
 };
 
 export type UserLoginForm = {
@@ -10,7 +10,7 @@ export type UserLoginForm = {
 
 export type UserSubmitForm = {
   email: string;
-  name: string;
+  username: string;
   pass: string;
 };
 

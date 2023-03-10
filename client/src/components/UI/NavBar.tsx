@@ -12,11 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
+import { logoutUserActionThunk } from '../../features/actions/userActions';
+
 
 const pages = ['Все предложения', 'Лучшие продавцы'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function NavBar(): JSX.Element {
+  const userData = useAppSelector((state) => state.userData);
+  const online = useAppSelector((state) => state.socketData.online);
+  const dispatch = useAppDispatch();
+
+  
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
   );

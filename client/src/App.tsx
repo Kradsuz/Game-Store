@@ -2,29 +2,51 @@
 import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Route, Routes } from 'react-router';
+import PrivateRouter from './components/HOC/PrivateRouter';
 import LoginPage from './components/Pages/LoginPage';
 import MainPage from './components/Pages/MainPage';
 import RegisterPage from './components/Pages/RegisterPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
-
+import { checkUserActionThunk } from './features/actions/userActions';
+import { wsInitAction } from './features/actions/wsActions';
 import { useAppDispatch, useAppSelector } from './features/reduxHooks';
 
 function App(): JSX.Element {
+  const status = useAppSelector((state) => state.userData.status);
   const dispatch = useAppDispatch();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleAuthSubmit = () => {
-    // handle authentication
-  };
+  useEffect(() => {
+    dispatch(checkUserActionThunk()).catch(() => null);
+  }, []);
+
+  useEffect(() => {
+    if (status === 'logged') {
+      dispatch(wsInitAction());
+    }
+  }, [status]);
+
   return (
     <Container>
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/kamenev" element={<TestApi />} />
-        <Route path="/auth/signin" element={<LoginPage title="Вход" submitButtonText="Sign in" onSubmit={handleAuthSubmit}/>} />
-        <Route path="/auth/signup" element={<RegisterPage title="Регистрация" submitButtonText="Sign up" onSubmit={handleAuthSubmit}/>} />
+        <Route
+          element={
+            <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
+          }
+        >
+        <Route
+          path="/auth/signin"
+          element={<LoginPage title="Вход" submitButtonText="Войти" />}
+        />
+        <Route
+          path="/auth/signup"
+          element={
+            <RegisterPage title="Регистрация" submitButtonText="Sign up" />
+          }
+        /> </Route>
       </Routes>
     </Container>
   );
