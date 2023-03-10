@@ -10,7 +10,7 @@ const initialState: UserType = {
 // const userSuccess = (state, action) => {
 //     state.status = 'logged';
 //     state.user = action.payload;
-//   }
+//   
   
 const userSlice = createSlice({
   name: 'userSlice',

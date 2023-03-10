@@ -12,12 +12,23 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+
+import { Link } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
 
 
-const pages = ['Все предложения', 'Лучшие продавцы'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [
+  { name: 'Все предложения', link: '/offers' },
+  { name: 'Лучшие продавцы', link: '/sellers' },
+];
+const settings = [
+  { name: 'Profile', link: '/profile' },
+  { name: 'Account', link: '/account' },
+  { name: 'Dashboard', link: '/dashboard' },
+  { name: 'Logout', link: '/logout' },
+];
 
 function NavBar(): JSX.Element {
   const userData = useAppSelector((state) => state.userData);
@@ -32,18 +43,18 @@ function NavBar(): JSX.Element {
     null,
   );
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>):void => {
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>):void => {
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = ():void => {
+  const handleCloseNavMenu = (): void => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = ():void => {
+  const handleCloseUserMenu = (): void => {
     setAnchorElUser(null);
   };
 
@@ -100,8 +111,8 @@ function NavBar(): JSX.Element {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -128,11 +139,13 @@ function NavBar(): JSX.Element {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
+                component={Link}
+                to={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -160,8 +173,17 @@ function NavBar(): JSX.Element {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
+                  {setting.name === 'Logout' ? (
+                    <Link
+                      to={setting.link}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </Link>
+                  ) : (
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  )}
                 </MenuItem>
               ))}
             </Menu>

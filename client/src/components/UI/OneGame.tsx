@@ -1,7 +1,11 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import { Row } from 'react-bootstrap';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { Grid } from '@mui/material';
 import type { GameType } from '../../types';
 
 type OneGameProps = {
@@ -10,26 +14,26 @@ type OneGameProps = {
 
 function OneGame({ game }: OneGameProps): JSX.Element {
   return (
-    <Col md={6} className="mt-2">
-      <Card style={{ height: '20rem' }}>
-        <Row>
-          <Col xs={4}>
-            {/* <Link to={`/${hero.id}`}> */}
-            <Card.Img
-              variant="top"
-              src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.jpg`}
-            />
-            {/* </Link> */}
-          </Col>
-          <Col xs={8}>
-            <Card.Body className="d-flex flex-column">
-              <Card.Title>{game.name}</Card.Title>
-              <Card.Text>About: {game.summary}</Card.Text>
-            </Card.Body>
-          </Col>
-        </Row>
+    <Grid>
+      <Card sx={{ maxWidth: 600 }}>
+        {/* <Link to={`/${hero.id}`}> */}
+        <CardMedia
+          component="img"
+          alt="gameImg"
+          height="140"
+          image={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.jpg`}
+        />
+        <CardContent className="d-flex flex-column">
+          <Typography gutterBottom variant="h5" component="div">
+            {game.name}
+          </Typography>
+          <Typography>About: {game.summary}</Typography>
+        </CardContent>
+        <CardActions>
+          <Button size="small">Добавить</Button>
+        </CardActions>
       </Card>
-    </Col>
+    </Grid>
   );
 }
 

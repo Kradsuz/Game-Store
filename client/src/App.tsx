@@ -31,7 +31,10 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/kamenev" element={<TestApi />} />
+
+        <Route path="/sellers" element={<TestApi />} />
+
+
         <Route
           element={
             <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
@@ -47,6 +50,7 @@ function App(): JSX.Element {
             <RegisterPage title="Регистрация" submitButtonText="Sign up" />
           }
         /> </Route>
+
       </Routes>
     </Container>
   );
