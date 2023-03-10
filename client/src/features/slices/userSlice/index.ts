@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { UserType } from '../../../types/userTypes';
-import { checkUserActionThunk, logouUserActionThunk, signInUserActionThunk, signUpUserActionThunk } from '../../actions';
+import type { UserType } from '../../../types';
+import { checkUserActionThunk, logoutUserActionThunk, signInUserActionThunk, signUpUserActionThunk } from '../../actions/userActions';
 
 const initialState: UserType = {
   user: undefined,
@@ -34,7 +34,7 @@ const userSlice = createSlice({
         state.user = undefined;
         state.status = 'err';
       })
-      .addCase(logouUserActionThunk.fulfilled, (state) => {
+      .addCase(logoutUserActionThunk.fulfilled, (state) => {
         state.user = undefined;
         state.status = 'idle';
       })

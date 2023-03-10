@@ -2,7 +2,7 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState } from 'react';
-import { signUpUserActionThunk } from '../../features/actions';
+import { signUpUserActionThunk } from '../../features/actions/userActions';
 import { useAppDispatch } from '../../features/reduxHooks';
 import type { UserSubmitForm } from '../../types/userTypes';
 

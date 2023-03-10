@@ -3,7 +3,7 @@ import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../features/reduxHooks';
-import { signInUserActionThunk} from '../../features/actions';
+import { signInUserActionThunk} from '../../features/actions/userActions';
 import type { UserSubmitForm } from '../../types/userTypes';
 
 const AuthPageContainer = styled(Box)({
