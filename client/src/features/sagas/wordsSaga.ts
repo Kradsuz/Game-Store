@@ -10,7 +10,7 @@ import { delay, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import type { WordType } from '../../types';
 import type { GetWordsSagaActionType } from '../../types/wordsActionsType';
 import { GET_WORDS_SAGA } from '../../types/wordsActionsType';
-import { putSagasWordsData } from '../wordsSlice';
+import { putSagasWordsData } from '../slices/wordsSlice';
 
 const fetchWords = (word: string): AxiosPromise<WordType[]> =>
   axios.post<WordType[]>('/api/word', { word });
