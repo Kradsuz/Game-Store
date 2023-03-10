@@ -1,8 +1,9 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Route, Routes } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
-import AuthPage from './components/Pages/AuthPage';
+import LoginPage from './components/Pages/LoginPage';
 
 // import AuthPage from './components/Pages/AuthPage';
 import MainPage from './components/Pages/MainPage';
@@ -30,7 +31,8 @@ function App(): JSX.Element {
     }
   }, [status]);
 
-  const handleAuthSubmit = (email: string, password: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleAuthSubmit = () => {
     // handle authentication
   };
   return (
@@ -47,7 +49,7 @@ function App(): JSX.Element {
             <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
           }
         >
-          <Route path="/auth/signin" element={<AuthPage title="Вход" submitButtonText="Sign in" onSubmit={handleAuthSubmit}/>} />
+          <Route path="/auth/signin" element={<LoginPage title="Вход" submitButtonText="Sign in" onSubmit={handleAuthSubmit}/>} />
           <Route path="/auth/signup" element={<RegisterPage title="Регистрация" submitButtonText="Sign up" onSubmit={handleAuthSubmit}/>} />
 
         </Route>

@@ -2,6 +2,9 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState } from 'react';
+import { signUpUserActionThunk } from '../../features/actions';
+import { useAppDispatch } from '../../features/reduxHooks';
+import type { UserSubmitForm } from '../../types/userTypes';
 
 const AuthPageContainer = styled(Box)({
   display: 'flex',
@@ -26,17 +29,23 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (name: string, email: string, password: string) => void;
+  onSubmit: (username: string, email: string, pass: string) => void;
 };
 
 function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [pass, setPass] = useState('');
+    const dispatch = useAppDispatch()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    onSubmit(name, email, password);
+    onSubmit(username, email, pass);
+        const data = Object.fromEntries(
+      new FormData(e.currentTarget),
+    ) as UserSubmitForm;
+    dispatch(signUpUserActionThunk(data)).catch(() => null);
+
   };
 
   return (
@@ -51,12 +60,12 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               margin="normal"
               required
               fullWidth
-              id="name"
+              id="username"
               label="Введите ник"
-              name="name"
-              autoComplete="name"
+              name="username"
+              autoComplete="username"
               autoFocus
-              value={name}
+              value={username}
               onChange={(e) => setName(e.target.value)}
             />
           </Grid>
@@ -81,10 +90,10 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               name="password"
               label="Введите пароль"
               type="password"
-              id="password"
+              id="pass"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -104,7 +113,7 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
 type RegisterPageProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (name: string, email: string, password: string) => void;
+  onSubmit: (username: string, email: string, pass: string) => void;
 };
 
 export default function RegisterPage({

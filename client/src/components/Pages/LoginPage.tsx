@@ -2,6 +2,9 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState } from 'react';
+import { useAppDispatch } from '../../features/reduxHooks';
+import { signInUserActionThunk} from '../../features/actions';
+import type { UserSubmitForm } from '../../types/userTypes';
 
 const AuthPageContainer = styled(Box)({
   display: 'flex',
@@ -26,16 +29,21 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (email: string, pass: string) => void;
 };
 
 function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [pass, setPass] = useState('');
+  const dispatch = useAppDispatch()
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    onSubmit(email, password);
+    onSubmit(email, pass);
+    const data = Object.fromEntries(
+      new FormData(e.currentTarget),
+    ) as UserSubmitForm;
+    dispatch(signInUserActionThunk(data)).catch(() => null);
   };
 
   return (
@@ -64,13 +72,13 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="pass"
               label="Введи пароль"
               type="password"
-              id="password"
+              id="pass"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -90,10 +98,14 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
 type AuthPageProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (email: string, password: string) => void;
+  onSubmit: (email: string, pass: string) => void;
 };
 
-export default function AuthPage({ title, submitButtonText, onSubmit }: AuthPageProps) {
+export default function AuthPage({
+  title,
+  submitButtonText,
+  onSubmit,
+}: AuthPageProps) {
   return (
     <AuthPageContainer>
       <AuthForm
