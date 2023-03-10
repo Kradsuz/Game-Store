@@ -26,12 +26,8 @@ module.exports = {
       summaru: {
         type: Sequelize.TEXT,
       },
-      offerId: {
+      apiGameId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Offers",
-          key: "id",
-        },
       },
       createdAt: {
         allowNull: false,

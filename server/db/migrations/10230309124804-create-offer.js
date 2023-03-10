@@ -16,6 +16,10 @@ module.exports = {
       },
       payId: {
         type: Sequelize.INTEGER,
+        references: {
+          model: "Pays",
+          key: "id",
+        },
       },
       sellerId: {
         type: Sequelize.INTEGER,
@@ -24,17 +28,17 @@ module.exports = {
           key: "id",
         },
       },
-      payIdId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Pays",
-          key: "id",
-        },
-      },
       platformId: {
         type: Sequelize.INTEGER,
         references: {
           model: "Platforms",
+          key: "id",
+        },
+      },
+      gameId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Games",
           key: "id",
         },
       },
