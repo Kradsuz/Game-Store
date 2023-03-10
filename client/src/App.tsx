@@ -22,7 +22,7 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/kamenev" element={<TestApi />} />
+        <Route path="/sellers" element={<TestApi />} />
         <Route path="/auth/signin" element={<LoginPage title="Вход" submitButtonText="Sign in" onSubmit={handleAuthSubmit}/>} />
         <Route path="/auth/signup" element={<RegisterPage title="Регистрация" submitButtonText="Sign up" onSubmit={handleAuthSubmit}/>} />
       </Routes>
