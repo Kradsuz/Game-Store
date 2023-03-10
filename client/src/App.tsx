@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { Route, Routes } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
@@ -35,7 +35,7 @@ function App(): JSX.Element {
   };
   return (
     <Container>
-      <AppNavbar />
+      <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/kamenev" element={<TestApi />} />

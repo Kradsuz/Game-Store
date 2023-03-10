@@ -4,9 +4,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useAppDispatch } from '../../features/reduxHooks';
-import { clearWordsStore } from '../../features/slices/wordsSlice';
-import getWordsSagaAction from '../../features/actions/wordsSagaAction';
-import getWordsThunkAction from '../../features/actions/wordsThunkActions';
+import { clearWordsStore } from '../../features/wordsSlice';
+import getWordsSagaAction from '../../features/wordsSagaAction';
+import getWordsThunkAction from '../../features/apiFeatures/wordsThunkActions';
 
 export default function WordInput(): JSX.Element {
   const [input, setInput] = useState('');
