@@ -1,5 +1,5 @@
-import type { GetWordsSagaActionType } from '../../types/wordsActionsType';
-import { GET_WORDS_SAGA } from '../../types/wordsActionsType';
+import type { GetWordsSagaActionType } from '../../../types/wordsActionsType';
+import { GET_WORDS_SAGA } from '../../../types/wordsActionsType';
 
  const getWordsSagaAction = (
   payload: string,

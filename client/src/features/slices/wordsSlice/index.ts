@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { WordType } from '../../types';
-import getWordsThunkAction from '../apiFeatures/wordsThunkActions';
+import type { WordType } from '../../../types';
+import getWordsThunkAction from '../../actions/wordsThunkActions';
 
 const initialState: WordType[] = [];
 

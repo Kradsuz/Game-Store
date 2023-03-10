@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { UserType } from '../../types/userTypes';
-import { checkUserActionThunk, logouUserActionThunk, signInUserActionThunk, signUpUserActionThunk } from '../actions';
+import type { UserType } from '../../../types/userTypes';
+import { checkUserActionThunk, logouUserActionThunk, signInUserActionThunk, signUpUserActionThunk } from '../../actions';
 
 const initialState: UserType = {
   user: undefined,
