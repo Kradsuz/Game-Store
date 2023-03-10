@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppDispatch } from '../../features/reduxHooks';
 import { signInUserActionThunk} from '../../features/actions/userActions';
 import type { UserSubmitForm } from '../../types/userTypes';
@@ -29,17 +29,13 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (email: string, pass: string) => void;
 };
 
-function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+function AuthForm({ title, submitButtonText}: AuthFormProps) {
   const dispatch = useAppDispatch()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    onSubmit(email, pass);
     const data = Object.fromEntries(
       new FormData(e.currentTarget),
     ) as UserSubmitForm;
@@ -63,8 +59,6 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               name="email"
               autoComplete="email"
               autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -77,8 +71,6 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               type="password"
               id="pass"
               autoComplete="current-password"
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -98,20 +90,17 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
 type AuthPageProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (email: string, pass: string) => void;
 };
 
 export default function AuthPage({
   title,
   submitButtonText,
-  onSubmit,
 }: AuthPageProps) {
   return (
     <AuthPageContainer>
       <AuthForm
         title={title}
         submitButtonText={submitButtonText}
-        onSubmit={onSubmit}
       />
     </AuthPageContainer>
   );

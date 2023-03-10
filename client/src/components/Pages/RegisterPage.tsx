@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
 import { signUpUserActionThunk } from '../../features/actions/userActions';
 import { useAppDispatch } from '../../features/reduxHooks';
 import type { UserSubmitForm } from '../../types/userTypes';
@@ -29,22 +29,20 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (username: string, email: string, pass: string) => void;
 };
 
-function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
-  const [username, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+function AuthForm({ title, submitButtonText, }: AuthFormProps) {
+
     const dispatch = useAppDispatch()
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    onSubmit(username, email, pass);
+  
         const data = Object.fromEntries(
       new FormData(e.currentTarget),
     ) as UserSubmitForm;
-    dispatch(signUpUserActionThunk(data)).catch(() => null);
+    dispatch(signUpUserActionThunk(data))
+    .catch(() => null);
 
   };
 
@@ -65,8 +63,7 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               name="username"
               autoComplete="username"
               autoFocus
-              value={username}
-              onChange={(e) => setName(e.target.value)}
+     
             />
           </Grid>
           <Grid item xs={12}>
@@ -78,8 +75,7 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               label="Введите ваш email"
               name="email"
               autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+          
             />
           </Grid>
           <Grid item xs={12}>
@@ -92,8 +88,6 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
               type="password"
               id="pass"
               autoComplete="current-password"
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
             />
           </Grid>
         </Grid>
@@ -113,20 +107,20 @@ function AuthForm({ title, submitButtonText, onSubmit }: AuthFormProps) {
 type RegisterPageProps = {
   title: string;
   submitButtonText: string;
-  onSubmit: (username: string, email: string, pass: string) => void;
+
 };
 
 export default function RegisterPage({
   title,
   submitButtonText,
-  onSubmit,
+
 }: RegisterPageProps) {
   return (
     <AuthPageContainer>
       <AuthForm
         title={title}
         submitButtonText={submitButtonText}
-        onSubmit={onSubmit}
+       
       />
     </AuthPageContainer>
   );
