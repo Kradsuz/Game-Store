@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 import { Button, Form } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import getGamesThunkAction from '../../features/actions/gameThunkActions';
 import OneGame from '../UI/OneGame';
 
 export default function TestApi(): JSX.Element {
+  
   const dispatch = useAppDispatch();
   
   const gameInputRef = useRef<HTMLInputElement>(null);
