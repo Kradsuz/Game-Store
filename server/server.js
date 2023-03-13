@@ -1,13 +1,14 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const session = require('express-session');
-const store = require('session-file-store');
-const http = require('http');
-const { WebSocketServer } = require('ws');
-const authRouter = require('./routes/authRouter');
-const postRouter = require('./routes/PostRouter');
-const wordRouter = require('./routes/wordRouter');
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
+const session = require("express-session");
+const store = require("session-file-store");
+const http = require("http");
+const { WebSocketServer } = require("ws");
+const authRouter = require("./routes/authRouter");
+const postRouter = require("./routes/PostRouter");
+const wordRouter = require("./routes/wordRouter");
+const gameAndOfferRouter = require("./routes/gameAndOfferRouter");
 
 const FileStore = store(session);
 const PORT = 3001;
@@ -15,8 +16,8 @@ const PORT = 3001;
 const map = new Map();
 
 const sessionConfig = session({
-  name: 'user_sid',
-  secret: process.env.SESSION_SECRET ?? 'test',
+  name: "user_sid",
+  secret: process.env.SESSION_SECRET ?? "test",
   resave: true,
   store: new FileStore(),
   saveUninitialized: false,
@@ -28,16 +29,17 @@ const sessionConfig = session({
 
 const app = express();
 
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: true, credentials: true }));
 app.use(sessionConfig);
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-app.use('/api/posts', postRouter);
-app.use('/api/auth', authRouter);
-app.use('/api/word', wordRouter);
+app.use("/api/posts", postRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/word", wordRouter);
+app.use("/api/games", gameAndOfferRouter);
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ clientTracking: false, noServer: true });
@@ -46,47 +48,47 @@ function onSocketError(err) {
   console.error(err);
 }
 
-server.on('upgrade', (request, socket, head) => {
-  console.log('Parsing session from request...');
+server.on("upgrade", (request, socket, head) => {
+  console.log("Parsing session from request...");
 
-  socket.on('error', onSocketError);
+  socket.on("error", onSocketError);
 
   sessionConfig(request, {}, () => {
     if (!request.session.user) {
-      socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
+      socket.write("HTTP/1.1 401 Unauthorized\r\n\r\n");
       socket.destroy();
       return;
     }
 
-    console.log('Session is parsed!');
+    console.log("Session is parsed!");
 
-    socket.removeListener('error', onSocketError);
+    socket.removeListener("error", onSocketError);
 
     wss.handleUpgrade(request, socket, head, (ws) => {
-      wss.emit('connection', ws, request);
+      wss.emit("connection", ws, request);
     });
   });
 });
 
-wss.on('connection', (ws, request) => {
+wss.on("connection", (ws, request) => {
   const { id } = request.session.user;
 
   map.set(id, ws);
 
-  ws.on('error', console.error);
+  ws.on("error", console.error);
 
-  ws.on('message', (message) => {
+  ws.on("message", (message) => {
     //
     // Here we can now use session parameters.
     //
     console.log(`Received message ${message} from user ${id}`);
   });
 
-  ws.on('close', () => {
+  ws.on("close", () => {
     map.delete(id);
   });
 });
 
 server.listen(PORT, () => {
-  console.log('server start on Port', PORT);
+  console.log("server start on Port", PORT);
 });
