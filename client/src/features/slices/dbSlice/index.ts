@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { GameType } from '../../../types';
+import type { DbGameType } from '../../../types';
 import {getOffersThunkAction} from '../../actions/dbThunkActions';
 
 type InitialStateType = {
-  games: GameType[];
+  games: DbGameType;
 
 };
 
 const initialState: InitialStateType = {
-  games: [],
+  games: {}
 };
 
 const dbSlice = createSlice({
@@ -20,6 +20,7 @@ const dbSlice = createSlice({
     builder.addCase(
       getOffersThunkAction.fulfilled,
       (state, action) => {
+        console.log(action.payload)
         state.games = action.payload;
       },
     );

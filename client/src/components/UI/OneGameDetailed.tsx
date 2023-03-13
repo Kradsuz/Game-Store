@@ -21,13 +21,12 @@ import type { GameType, PlatformsType } from '../../types';
 import { getOffersThunkAction } from '../../features/actions/dbThunkActions';
 
 export default function OneGameDetailed(): JSX.Element {
-  
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const game = useAppSelector((state) =>
     state.apiData.games.find((el) => el.id === Number(id)),
   );
-  const user = useAppSelector((state) => state.userData.user)
+  const user = useAppSelector((state) => state.userData.user);
 
   const modal = useAppSelector((state) => state.apiData.modal);
 
@@ -42,25 +41,31 @@ export default function OneGameDetailed(): JSX.Element {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data: { [key: string]: string | File } = {}; 
+    const data: { [key: string]: string | File } = {};
     formData.forEach((value, key) => {
       data[key] = typeof value === 'string' ? value : value;
     });
     axios
       .post('/api/games/add', { data, game, user })
-      .then(() => {
-      })
+      .then(() => {})
       .catch((err) => {
         console.log(err);
       });
-      handleClose();
+    handleClose();
   };
+
+  const handleOffers = (data: number): void => {
+    dispatch(getOffersThunkAction(data)).catch(() => {})
+  }
 
   return (
     <div>
-      <Button variant="outlined" onClick={() => dispatch(getOffersThunkAction(Number(id)))}>
-          Get Offers
-        </Button>
+      <Button
+        variant="outlined"
+        onClick={() => handleOffers(Number(id))}
+      >
+        Get Offers
+      </Button>
       {game && (
         <Button variant="outlined" onClick={() => handleClickOpen(game)}>
           Add new Offer
