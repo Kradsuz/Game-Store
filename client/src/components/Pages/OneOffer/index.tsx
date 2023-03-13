@@ -33,7 +33,6 @@ const useStyles = makeStyles({
 });
 
 export default function OneOffer({game}:OneOfferProps): JSX.Element {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const handleEdit = () => {
