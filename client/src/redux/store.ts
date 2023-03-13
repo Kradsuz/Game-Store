@@ -4,6 +4,7 @@ import {
 } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from '../features/sagas/rootSaga';
+import dbSlice from '../features/slices/dbSlice';
 import gamesSlice from '../features/slices/gamesSlice';
 import userSlice from '../features/slices/userSlice';
 import wsSlice from '../features/slices/wsSlice';
@@ -11,9 +12,10 @@ import wsSlice from '../features/slices/wsSlice';
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-  games: gamesSlice,
+  apiData: gamesSlice,
   userData: userSlice,
   socketData: wsSlice,
+  dbData: dbSlice,
 });
 
 const store = configureStore({

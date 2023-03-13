@@ -1,28 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { GameType } from '../../../types';
-import getGamesThunkAction from '../../actions/gameThunkActions';
+import {getOffersThunkAction} from '../../actions/dbThunkActions';
 
 type InitialStateType = {
   games: GameType[];
-  modal: false | GameType;
+
 };
 
 const initialState: InitialStateType = {
   games: [],
-  modal: false,
 };
 
-const gamesSlice = createSlice({
+const dbSlice = createSlice({
   name: 'gamesSlice',
   initialState,
   reducers: {
-    modalAction(state, action) {
-      state.modal = action.payload as GameType;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(
-      getGamesThunkAction.fulfilled,
+      getOffersThunkAction.fulfilled,
       (state, action) => {
         state.games = action.payload;
       },
@@ -31,5 +27,5 @@ const gamesSlice = createSlice({
 });
 
 
-export const { modalAction } = gamesSlice.actions;
-export default gamesSlice.reducer;
+
+export default dbSlice.reducer;

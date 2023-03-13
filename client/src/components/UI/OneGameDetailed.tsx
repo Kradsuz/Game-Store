@@ -18,17 +18,18 @@ import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { modalAction } from '../../features/slices/gamesSlice';
 import type { GameType, PlatformsType } from '../../types';
+import { getOffersThunkAction } from '../../features/actions/dbThunkActions';
 
 export default function OneGameDetailed(): JSX.Element {
   
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const game = useAppSelector((state) =>
-    state.games.games.find((el) => el.id === Number(id)),
+    state.apiData.games.find((el) => el.id === Number(id)),
   );
   const user = useAppSelector((state) => state.userData.user)
 
-  const modal = useAppSelector((state) => state.games.modal);
+  const modal = useAppSelector((state) => state.apiData.modal);
 
   const handleClickOpen = (data: GameType | false): void => {
     dispatch(modalAction(data));
@@ -57,6 +58,9 @@ export default function OneGameDetailed(): JSX.Element {
 
   return (
     <div>
+      <Button variant="outlined" onClick={() => dispatch(getOffersThunkAction(Number(id)))}>
+          Get Offers
+        </Button>
       {game && (
         <Button variant="outlined" onClick={() => handleClickOpen(game)}>
           Add new Offer
