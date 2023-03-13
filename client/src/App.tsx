@@ -32,7 +32,6 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-
         <Route path="/sellers" element={<TestApi />} />
         <Route path="/sellers/:id" element={<OneGameDetailed />} />
 
