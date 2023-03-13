@@ -1,33 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import type { UserFromBackand, UserSubmitForm, UserLoginForm } from '../../types/userTypes';
+import type { UserFromBackend, UserSubmitForm, UserLoginForm } from '../../types/userTypes';
 
-export const checkUserActionThunk = createAsyncThunk<UserFromBackand>(
+export const checkUserActionThunk = createAsyncThunk<UserFromBackend>(
   'user/check',
   async () =>
-    axios<UserFromBackand>('/api/auth/check')
+    axios<UserFromBackend>('/api/auth/check')
       .then((res) => res.data)
       .catch(() => {
         throw new Error('err');
       }),
 );
 
-export const signUpUserActionThunk = createAsyncThunk<UserFromBackand, UserSubmitForm>(
+export const signUpUserActionThunk = createAsyncThunk<UserFromBackend, UserSubmitForm>(
     'user/signup',
     async(data) => 
      axios
-     .post<UserFromBackand>('/api/auth/signup', data)
+     .post<UserFromBackend>('/api/auth/signup', data)
      .then(res => res.data)
      .catch(() => {
         throw new Error('err');
       }),
 )
 
-export const signInUserActionThunk = createAsyncThunk<UserFromBackand, UserLoginForm>(
+export const signInUserActionThunk = createAsyncThunk<UserFromBackend, UserLoginForm>(
     'user/signin',
     async(data) => 
      axios
-     .post<UserFromBackand>('/api/auth/signin', data)
+     .post<UserFromBackend>('/api/auth/signin', data)
      .then(res => res.data)
      .catch(() => {
         throw new Error('err');

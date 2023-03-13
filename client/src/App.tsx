@@ -49,7 +49,7 @@ function App(): JSX.Element {
         <Route
           path="/auth/signup"
           element={
-            <RegisterPage title="Регистрация" submitButtonText="Sign up" />
+              <RegisterPage title="Регистрация" submitButtonText="Sign up"/>
           }
         /> </Route>
 
