@@ -7,6 +7,7 @@ export type DbGameType = {
     rating: number,
     apiGameId: number,
     summaru: string,
+    Offers?: DBOfferType[]
 }
 export type DBOfferType = {
     price: string

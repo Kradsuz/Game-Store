@@ -30,10 +30,8 @@ function App(): JSX.Element {
   return (
     <>
       <NavBar />
-      <Container>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-
+      <Routes>
+        <Route path="/" element={<MainPage />} />
         <Route path="/sellers" element={<TestApi />} />
         <Route path="/sellers/:id" element={<OneGameDetailed />} />
 
@@ -54,7 +52,6 @@ function App(): JSX.Element {
           />{' '}
         </Route>
       </Routes>
-    </Container>
     </>
   );
 }

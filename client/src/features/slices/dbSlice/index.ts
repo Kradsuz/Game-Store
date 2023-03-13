@@ -3,12 +3,21 @@ import type { DbGameType } from '../../../types';
 import {getOffersThunkAction} from '../../actions/dbThunkActions';
 
 type InitialStateType = {
-  games: DbGameType;
+  gameOffers: DbGameType;
 
 };
 
 const initialState: InitialStateType = {
-  games: {}
+  gameOffers: {
+    id:0,
+    cover: '',
+    date: '',
+    genres: '',
+    name: '',
+    rating: 0,
+    apiGameId: 0,
+    summaru: '',
+    Offers: []}
 };
 
 const dbSlice = createSlice({
@@ -21,7 +30,7 @@ const dbSlice = createSlice({
       getOffersThunkAction.fulfilled,
       (state, action) => {
         console.log(action.payload)
-        state.games = action.payload;
+        state.gameOffers = action.payload;
       },
     );
   },
