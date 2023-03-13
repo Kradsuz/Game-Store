@@ -4,7 +4,7 @@ import type { DbGameType, GameType } from '../../types';
 
 export const getOffersThunkAction = createAsyncThunk<number>(
   'offers/fetch',
-  async (id:number) => {
+  async (id: number) => {
     try {
       const response = await axios.post<DbGameType>('/api/games/offers', {id});
       return response.data;

@@ -42,14 +42,19 @@ gameAndOfferRouter.post("/add", async (req, res) => {
     gameId: createGame[0].dataValues.id,
   });
 });
-
 gameAndOfferRouter.post("/offers", async (req, res) => {
-  const gameAndOfferId = req.body.id;
-  const gameAndOffers = Game.findOne({
-    where: { apiGameId: gameAndOfferId },
-    include: [{ model: Offer }],
-  });
-  res.json(gameAndOffers);
+  try {
+    const gameAndOfferId = req.body.id;
+    const gameAndOffers = await Game.findOne({
+      where: { apiGameId: gameAndOfferId },
+      include: [{ model: Offer }],
+    });
+    console.log("IDOOOFFF", gameAndOffers);
+    res.json(gameAndOffers);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 });
 
 gameAndOfferRouter.post("/", async (req, res) => {
