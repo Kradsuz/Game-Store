@@ -8,6 +8,7 @@ import MainPage from './components/Pages/MainPage';
 import RegisterPage from './components/Pages/RegisterPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
+import OneGameDetailed from './components/UI/OneGameDetailed';
 import { checkUserActionThunk } from './features/actions/userActions';
 import { wsInitAction } from './features/actions/wsActions';
 import { useAppDispatch, useAppSelector } from './features/reduxHooks';
@@ -31,7 +32,11 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/offers" element={<TestApi />} />
+
+        <Route path="/sellers" element={<TestApi />} />
+        <Route path="/sellers/:id" element={<OneGameDetailed />} />
+
+
         <Route
           element={
             <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
@@ -47,6 +52,7 @@ function App(): JSX.Element {
             <RegisterPage title="Регистрация" submitButtonText="Sign up" />
           }
         /> </Route>
+
       </Routes>
     </Container>
   );

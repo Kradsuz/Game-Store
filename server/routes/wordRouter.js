@@ -11,7 +11,7 @@ router.route("/").post(async (req, res) => {
       "Client-ID": "mygwbxj34b8xm0zrv7pkro5he2bm55",
       "Authorization": "bearer 2vz0nh5ruj8arjspdiparnwptpsho5",
     },
-    data: `fields id, name, cover.image_id, rating, summary, genres.name, platforms, first_release_date;limit 20;search "${search}";`,
+    data: `fields id, name, cover.image_id, rating, summary, genres.name, platforms.abbreviation, first_release_date;limit 20;search "${search}";`,
   })
     .then((response) => {
       res.json(response.data);
