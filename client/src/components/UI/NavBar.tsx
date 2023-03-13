@@ -22,19 +22,25 @@ import { logoutUserActionThunk } from '../../features/actions/userActions';
 const pages = [
   { name: 'Все предложения', link: '/offers' },
   { name: 'Лучшие продавцы', link: '/sellers' },
+  { name: 'Войти', link: '/auth/signin' },
+  { name: 'Зарегистрироваться', link: '/auth/signup' },
 ];
 const settings = [
   { name: 'Profile', link: '/profile' },
-  { name: 'Account', link: '/account' },
+  { name: 'Личный кабинет', link: '/account' },
   { name: 'Dashboard', link: '/dashboard' },
-  { name: 'Logout', link: '/logout' },
+  { name: 'Logout', link: '/' },
 ];
 
 function NavBar(): JSX.Element {
   const userData = useAppSelector((state) => state.userData);
   const online = useAppSelector((state) => state.socketData.online);
+  const isLoggedIn = !!userData.user;
   const dispatch = useAppDispatch();
 
+  const logoutHandler = (): void => {
+    dispatch(logoutUserActionThunk()).catch(() => null);
+  };
   
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
@@ -137,7 +143,13 @@ function NavBar(): JSX.Element {
             GameStore
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.filter((page) => {
+              if (page.name === 'Войти' || page.name === 'Зарегистрироваться') {
+                return !isLoggedIn
+              }
+              return true 
+            }) 
+            .map((page) => (
               <Button
                 key={page.name}
                 component={Link}
@@ -176,6 +188,7 @@ function NavBar(): JSX.Element {
                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
                   {setting.name === 'Logout' ? (
                     <Link
+                    onClick={logoutHandler}
                       to={setting.link}
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >

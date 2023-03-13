@@ -12,6 +12,7 @@ export type UserSubmitForm = {
   email: string;
   username: string;
   pass: string;
+  roleId: unknown;
 };
 
 export type UserType = {

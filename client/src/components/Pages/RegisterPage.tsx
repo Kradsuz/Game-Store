@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
 import { styled } from '@mui/system';
 import React from 'react';
 import { signUpUserActionThunk } from '../../features/actions/userActions';
 import { useAppDispatch } from '../../features/reduxHooks';
 import type { UserSubmitForm } from '../../types/userTypes';
+
 
 const AuthPageContainer = styled(Box)({
   display: 'flex',
@@ -29,6 +30,7 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
+  
 };
 
 function AuthForm({ title, submitButtonText, }: AuthFormProps) {
@@ -41,11 +43,28 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
         const data = Object.fromEntries(
       new FormData(e.currentTarget),
     ) as UserSubmitForm;
-    dispatch(signUpUserActionThunk(data))
+    
+    const roleId = data.roleId ? 2 : 1;
+    dispatch(signUpUserActionThunk({...data, roleId}))
     .catch(() => null);
 
   };
 
+  // const emailValidation = (value: string) => {
+  //   // Check for @ symbol
+  //   if (!value.includes('@')) {
+  //     return 'Email должен содержать символ @';
+  //   }
+                                                       
+  //   // Check for Latin letters
+  //   const latinLetters = /[a-zA-Z]/;
+  //   if (latinLetters.test(value)) {
+  //     return 'Email не должен содержать латинские буквы';
+  //   }
+  
+  //   return '';
+  // };
+  
   return (
     <AuthFormContainer>
       <Typography variant="h5" align="center">
@@ -74,8 +93,9 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
               id="email"
               label="Введите ваш email"
               name="email"
-              autoComplete="email"
-          
+              autoComplete="current-email"
+              type="email"
+              // InputProps={{ onBlur: (e) => emailValidation(e.target.value) }} // проверка на ввод
             />
           </Grid>
           <Grid item xs={12}>
@@ -87,7 +107,13 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
               label="Введите пароль"
               type="password"
               id="pass"
-              autoComplete="current-password"
+              autoComplete="new-password"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={<Checkbox id="roleId" name="roleId" color="warning" />}
+              label="Зарегистрироваться как продавец"
             />
           </Grid>
         </Grid>
