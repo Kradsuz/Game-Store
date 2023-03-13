@@ -17,16 +17,18 @@ import {
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { modalAction } from '../../features/slices/gamesSlice';
-import type { GameType, OfferType, PlatformsType } from '../../types';
+import type { GameType, PlatformsType } from '../../types';
+import { getOffersThunkAction } from '../../features/actions/dbThunkActions';
 
 export default function OneGameDetailed(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const game = useAppSelector((state) =>
-    state.games.games.find((el) => el.id === Number(id)),
+    state.apiData.games.find((el) => el.id === Number(id)),
   );
+  const user = useAppSelector((state) => state.userData.user);
 
-  const modal = useAppSelector((state) => state.games.modal);
+  const modal = useAppSelector((state) => state.apiData.modal);
 
   const handleClickOpen = (data: GameType | false): void => {
     dispatch(modalAction(data));
@@ -39,22 +41,31 @@ export default function OneGameDetailed(): JSX.Element {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data = {};
+    const data: { [key: string]: string | File } = {};
     formData.forEach((value, key) => {
-      data[key] = value;
+      data[key] = typeof value === 'string' ? value : value;
     });
     axios
-      .post('/api/games/add', { data, game })
-      .then((response) => {
-        res.json(response.data);
-      })
+      .post('/api/games/add', { data, game, user })
+      .then(() => {})
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
       });
+    handleClose();
   };
+
+  const handleOffers = (data: number): void => {
+    dispatch(getOffersThunkAction(data)).catch(() => {})
+  }
 
   return (
     <div>
+      <Button
+        variant="outlined"
+        onClick={() => handleOffers(Number(id))}
+      >
+        Get Offers
+      </Button>
       {game && (
         <Button variant="outlined" onClick={() => handleClickOpen(game)}>
           Add new Offer
@@ -76,7 +87,7 @@ export default function OneGameDetailed(): JSX.Element {
               >
                 {game?.platforms.map((platform: PlatformsType) => (
                   <FormControlLabel
-                    value={platform?.id}
+                    value={platform?.abbreviation}
                     control={<Radio />}
                     label={platform?.abbreviation}
                   />
