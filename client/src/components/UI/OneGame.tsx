@@ -6,6 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import type { GameType } from '../../types';
 
 type OneGameProps = {
@@ -16,13 +17,14 @@ function OneGame({ game }: OneGameProps): JSX.Element {
   return (
     <Grid>
       <Card sx={{ maxWidth: 600 }}>
-        {/* <Link to={`/${hero.id}`}> */}
-        <CardMedia
-          component="img"
-          alt="gameImg"
-          height="140"
-          image={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.jpg`}
-        />
+        <Link to={`/sellers/${game.id}`}>
+          <CardMedia
+            component="img"
+            alt="gameImg"
+            height="140"
+            image={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.jpg`}
+          />
+        </Link>
         <CardContent className="d-flex flex-column">
           <Typography gutterBottom variant="h5" component="div">
             {game.name}
