@@ -55,6 +55,7 @@ function App(): JSX.Element {
         </Route>
       </Routes>
     </Container>
+    </>
   );
 }
 
