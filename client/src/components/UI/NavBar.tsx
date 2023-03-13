@@ -20,8 +20,8 @@ import { logoutUserActionThunk } from '../../features/actions/userActions';
 
 
 const pages = [
-  { name: 'Все предложения', link: '/offers' },
-  { name: 'Лучшие продавцы', link: '/sellers' },
+  { name: 'Игры', link: '/games' },
+  { name: 'Предложения магазина', link: '/offers' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
 ];
