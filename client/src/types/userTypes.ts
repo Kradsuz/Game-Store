@@ -1,4 +1,4 @@
-export type UserFromBackand = {
+export type UserFromBackend = {
   id: number;
   username: string;
 };
@@ -13,9 +13,10 @@ export type UserSubmitForm = {
   username: string;
   pass: string;
   roleId: unknown;
+  confirmPass: string;
 };
 
 export type UserType = {
-  user?: UserFromBackand;
+  user?: UserFromBackend;
   status: 'fetching' | 'logged' | 'err' | 'idle';
 };

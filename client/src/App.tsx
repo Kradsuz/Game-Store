@@ -28,7 +28,7 @@ function App(): JSX.Element {
   }, [status]);
 
   return (
-    <Container>
+    <>
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
@@ -52,7 +52,7 @@ function App(): JSX.Element {
           />{' '}
         </Route>
       </Routes>
-    </Container>
+    </>
   );
 }
 

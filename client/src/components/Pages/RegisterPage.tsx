@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Box, Button, Grid, TextField, Typography, Checkbox, FormControlLabel } from '@mui/material';
+import {
+  Box,
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+} from '@mui/material';
 import { styled } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import { signUpUserActionThunk } from '../../features/actions/userActions';
 import { useAppDispatch } from '../../features/reduxHooks';
 import type { UserSubmitForm } from '../../types/userTypes';
-
 
 const AuthPageContainer = styled(Box)({
   display: 'flex',
@@ -30,41 +37,55 @@ const AuthFormContainer = styled(Box)({
 type AuthFormProps = {
   title: string;
   submitButtonText: string;
-  
 };
 
-function AuthForm({ title, submitButtonText, }: AuthFormProps) {
+type UserFormData = {
+  username: string;
+  email: string;
+  password: string;
+  message: string; // добавляем это свойство
+  roleId?: boolean;
+  // emailExists?: boolean; // добавляем это свойство
+  // usernameExists?: boolean; // добавляем это свойство
+};
 
-    const dispatch = useAppDispatch()
+// type ErrorData = {
+//   emailExists?: boolean; по
+//   usernameExists?: boolean;
+// };
+
+function AuthForm({ title, submitButtonText }: AuthFormProps) {
+  const dispatch = useAppDispatch();
+  const [error, setError] = useState<Partial<UserFormData>>({});
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-  
-        const data = Object.fromEntries(
+
+    const data = Object.fromEntries(
       new FormData(e.currentTarget),
     ) as UserSubmitForm;
-    
-    const roleId = data.roleId ? 2 : 1;
-    dispatch(signUpUserActionThunk({...data, roleId}))
-    .catch(() => null);
 
+    if (data.pass !== data.confirmPass) {
+      return setError({ message: 'Пароли не совпадают' });
+    }
+    const roleId = data.roleId ? 2 : 1;
+    dispatch(signUpUserActionThunk({ ...data, roleId }))
+      //   .catch(
+      //     (err: AxiosError<ErrorData>) => {
+      //       const errorData = err.response?.data;
+      //       if (errorData?.emailExists) {
+      //         setError({ emailExists: true });
+      //       } else if (errorData?.usernameExists) {
+      //         setError({ usernameExists: true });
+      //       } else {
+      //         setError({ message: 'что-то пошло не так' });
+      //       }
+      //     },
+      //   );
+      // };
+      .catch(() => null);
   };
 
-  // const emailValidation = (value: string) => {
-  //   // Check for @ symbol
-  //   if (!value.includes('@')) {
-  //     return 'Email должен содержать символ @';
-  //   }
-                                                       
-  //   // Check for Latin letters
-  //   const latinLetters = /[a-zA-Z]/;
-  //   if (latinLetters.test(value)) {
-  //     return 'Email не должен содержать латинские буквы';
-  //   }
-  
-  //   return '';
-  // };
-  
   return (
     <AuthFormContainer>
       <Typography variant="h5" align="center">
@@ -82,7 +103,8 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
               name="username"
               autoComplete="username"
               autoFocus
-     
+              // error={!!error.usernameExists}
+              // helperText={error.usernameExists && 'Пользователь с таким ником уже существует'}
             />
           </Grid>
           <Grid item xs={12}>
@@ -95,7 +117,8 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
               name="email"
               autoComplete="current-email"
               type="email"
-              // InputProps={{ onBlur: (e) => emailValidation(e.target.value) }} // проверка на ввод
+              // error={!!error.emailExists}
+              // helperText={error.emailExists && 'Этот email уже зарегистрирован'}
             />
           </Grid>
           <Grid item xs={12}>
@@ -103,19 +126,33 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
               margin="normal"
               required
               fullWidth
-              name="password"
+              name="pass"
               label="Введите пароль"
               type="password"
               id="pass"
-              autoComplete="new-password"
+              autoComplete="current-password"
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox id="roleId" name="roleId" color="warning" />}
-              label="Зарегистрироваться как продавец"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPass"
+              label="Повторите пароль"
+              type="password"
+              id="confirmPass"
+              autoComplete="current-password"
+              error={!!error.message}
+              helperText={error.message}
             />
           </Grid>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox id="roleId" name="roleId" color="warning" />}
+            label="Зарегистрироваться как продавец"
+          />
         </Grid>
         <Button
           type="submit"
@@ -133,21 +170,15 @@ function AuthForm({ title, submitButtonText, }: AuthFormProps) {
 type RegisterPageProps = {
   title: string;
   submitButtonText: string;
-
 };
 
 export default function RegisterPage({
   title,
   submitButtonText,
-
 }: RegisterPageProps) {
   return (
     <AuthPageContainer>
-      <AuthForm
-        title={title}
-        submitButtonText={submitButtonText}
-       
-      />
+      <AuthForm title={title} submitButtonText={submitButtonText} />
     </AuthPageContainer>
   );
 }
