@@ -34,31 +34,27 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<MainPage />} />
 
-          <Route path="/offers" element={<TestApi />} />
-          <Route path="/offers/:id" element={<OneGameDetailed />} />
+        <Route path="/sellers" element={<TestApi />} />
+        <Route path="/sellers/:id" element={<OneGameDetailed />} />
 
+        <Route
+          element={
+            <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
+          }
+        >
           <Route
+            path="/auth/signin"
+            element={<LoginPage title="Вход" submitButtonText="Войти" />}
+          />
+          <Route
+            path="/auth/signup"
             element={
-              <PrivateRouter
-                isAllowed={!(status === 'logged')}
-                redirectTo="/"
-              />
+              <RegisterPage title="Регистрация" submitButtonText="Sign up" />
             }
-          >
-            <Route
-              path="/auth/signin"
-              element={<LoginPage title="Вход" submitButtonText="Войти" />}
-            />
-            <Route
-              path="/auth/signup"
-              element={
-                <RegisterPage title="Регистрация" submitButtonText="Sign up" />
-              }
-            />{' '}
-          </Route>
-        </Routes>
-      </Container>
-    </>
+          />{' '}
+        </Route>
+      </Routes>
+    </Container>
   );
 }
 

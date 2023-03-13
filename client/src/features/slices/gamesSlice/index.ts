@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import type { GameType } from '../../../types';
 import getGamesThunkAction from '../../actions/gameThunkActions';
 

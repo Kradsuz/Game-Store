@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       payId: DataTypes.INTEGER,
       sellerId: DataTypes.INTEGER,
       platformId: DataTypes.INTEGER,
-      offerId: DataTypes.INTEGER,
+      gameId: DataTypes.INTEGER,
     },
     {
       sequelize,

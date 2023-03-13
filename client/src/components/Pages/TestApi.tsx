@@ -17,7 +17,7 @@ export default function TestApi(): JSX.Element {
       dispatch(getGamesThunkAction(gameInputValue)).catch(() => {});
   };
 
-  const search = useAppSelector((state) => state.games.games);
+  const search = useAppSelector((state) => state.apiData.games);
 
   return (
     <Grid container spacing={5}>
