@@ -41,19 +41,20 @@ gameAndOfferRouter.post("/add", async (req, res) => {
     platformId: createPlatform[0].dataValues.id,
     gameId: createGame[0].dataValues.id,
   });
+});
 
-  gameAndOfferRouter.post("/offers", async (req, res) => {
-    const gameAndOfferId = req.body;
-    const gameAndOffers = Game.findOne({ where: { gameAndOfferId } });
-    res.json(gameAndOffers);
+gameAndOfferRouter.post("/offers", async (req, res) => {
+  const gameAndOfferId = req.body.id;
+  const gameAndOffers = Game.findOne({
+    where: { apiGameId: gameAndOfferId },
+    include: [{ model: Offer }],
   });
+  res.json(gameAndOffers);
+});
 
-  gameAndOfferRouter.post("/", async (req, res) => {
-    const allGame = await Game.findAll();
-    res.json(allGame);
-  });
+gameAndOfferRouter.post("/", async (req, res) => {
+  const allGame = await Game.findAll();
+  res.json(allGame);
 });
 
 module.exports = gameAndOfferRouter;
-
-
