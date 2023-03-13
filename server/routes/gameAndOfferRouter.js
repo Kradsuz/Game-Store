@@ -22,7 +22,6 @@ gameAndOfferRouter.post("/add", async (req, res) => {
       apiGameId: game.id,
     },
   });
-  //   console.log("GAMEID", createGame);
   //   console.log("OFFER", offer);
   //   console.log("GAME", game);
   //   console.log(new Date(game.first_release_date).getUTCFullYear());
