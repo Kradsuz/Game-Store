@@ -2,14 +2,17 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { GameType } from '../../types';
 
-const getGamesThunkAction = createAsyncThunk (
+const getGamesThunkAction = createAsyncThunk<GameType[], string>(
   'games/fetch',
-  async (search: string) =>
-    axios.post<GameType[]>('/api/word', {search})
-  .then(res => res.data)
-  .catch(err => {
-      console.error(err);
-  })
-)
+  async (search: string) => {
+    try {
+      const response = await axios.post<GameType[]>('/api/word', { search });
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  },
+);
 
 export default getGamesThunkAction;
