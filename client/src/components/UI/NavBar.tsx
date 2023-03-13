@@ -13,10 +13,12 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
+import { logoutUserActionThunk } from '../../features/actions/userActions';
 
 const pages = [
-  { name: 'Все предложения', link: '/offers' },
-  { name: 'Лучшие продавцы', link: '/sellers' },
+  { name: 'Игры', link: '/games' },
+  { name: 'Предложения магазина', link: '/offers' },
 ];
 const settings = [
   { name: 'Profile', link: '/profile' },
@@ -26,6 +28,10 @@ const settings = [
 ];
 
 function NavBar(): JSX.Element {
+  const userData = useAppSelector((state) => state.userData);
+  const online = useAppSelector((state) => state.socketData.online);
+  const dispatch = useAppDispatch();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
   );

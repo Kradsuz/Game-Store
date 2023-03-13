@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
-export default function OneItem():JSX.Element {
-  return (
-    <div>index</div>
-  )
+export default function OneItem(): JSX.Element {
+  return <div>index</div>;
 }
