@@ -17,7 +17,7 @@ function OneGame({ game }: OneGameProps): JSX.Element {
   return (
     <Grid>
       <Card sx={{ maxWidth: 600 }}>
-        <Link to={`/sellers/${game.id}`}>
+        <Link to={`/offers/${game.id}`}>
           <CardMedia
             component="img"
             alt="gameImg"
