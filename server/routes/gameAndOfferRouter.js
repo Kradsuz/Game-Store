@@ -60,5 +60,5 @@ gameAndOfferRouter.post("/", async (req, res) => {
   const allGame = await Game.findAll();
   res.json(allGame);
 });
-
+//LK
 module.exports = gameAndOfferRouter;
