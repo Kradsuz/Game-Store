@@ -4,33 +4,34 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
-import type { DbGameType, PlatformsType } from '../../types';
+import type { DbGameType } from '../../types';
 
 type OneGameProps = {
-  game: DbGameType
+  game: DbGameType;
 };
 
 function OneGame({ game }: OneGameProps): JSX.Element {
+  console.log(game);
 
   return (
-    <Grid item xs={12} sm={6} md={4} sx={{ height: 400 }}>
-      <Card sx={{ height: '100%' }}>
+    <Grid item xs={4} sx={{ height: '100%' }}>
+      <Card
+        sx={{ marginTop: 3, marginLeft: 6, width: '380px', height: '400px' }}
+      >
         {/* <Link to={`/games/${game.id}`}> */}
-          <CardMedia
-            component="img"
-            alt="gameImg"
-            height="200"
-            image={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.cover}.jpg`}
-          />
+        <CardMedia
+          component="img"
+          alt="gameImg"
+          height='230'
+          image={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.cover}.jpg`}
+        />
         {/* </Link> */}
-        <CardContent className="d-flex flex-column">
+        <CardContent sx={{ marginTop: 'auto', marginBottom: 'auto', padding: 3 }}>
           <Typography gutterBottom variant="h6" component="div">
             {game.name}
           </Typography>
-          {/* {game?.platforms?.map((platform: PlatformsType) => (
-            <Typography key={platform.id}>{platform.abbreviation}</Typography>
-          ))} */}
+          <Typography>{game.genres}</Typography>
+          <Typography>{game.rating}</Typography>
         </CardContent>
       </Card>
     </Grid>
