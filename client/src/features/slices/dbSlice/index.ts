@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { DbGameType } from '../../../types';
-import {getOffersThunkAction} from '../../actions/dbThunkActions';
+import {getDBGamesThunkAction, getOfferBySellerThunkAction, getOffersThunkAction} from '../../actions/dbThunkActions';
 
 type InitialStateType = {
   gameOffers: DbGameType;
-
+  dbGames: DbGameType[];
+  sellerOffers: DbGameType[];
 };
 
 const initialState: InitialStateType = {
@@ -17,7 +18,9 @@ const initialState: InitialStateType = {
     rating: 0,
     apiGameId: 0,
     summaru: '',
-    Offers: []}
+    Offers: []},
+    dbGames: [],
+    sellerOffers: []
 };
 
 const dbSlice = createSlice({
@@ -26,12 +29,25 @@ const dbSlice = createSlice({
   reducers: {
   },
   extraReducers: (builder) => {
-    builder.addCase(
+    builder
+    .addCase(
       getOffersThunkAction.fulfilled,
       (state, action) => {
         state.gameOffers = action.payload;
       },
-    );
+    )
+    .addCase(
+      getDBGamesThunkAction.fulfilled,
+      (state, action) => {
+        state.dbGames = action.payload;
+      },
+    )
+    .addCase(
+      getOfferBySellerThunkAction.fulfilled,
+      (state, action) => {
+        state.dbGames = action.payload;
+      },
+    )
   },
 });
 

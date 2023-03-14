@@ -3,9 +3,10 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../features/reduxHooks';
 import OneOffer from '../OneOffer';
 import { getOffersThunkAction } from '../../../features/actions/dbThunkActions';
+import type { DBOfferType } from '../../../types';
 
 type PropsType = {
-    id: number,
+    id: number
 }
 
 export default function SellerOffers({id}:PropsType): JSX.Element {
@@ -23,7 +24,7 @@ export default function SellerOffers({id}:PropsType): JSX.Element {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={6}>
-        {sellerData?.Offers?.map((el) => (
+        {sellerData?.Offers?.map((el:DBOfferType) => (
           <OneOffer key={el.gameId} offer={el} />
         ))}
       </Grid>

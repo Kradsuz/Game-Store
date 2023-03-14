@@ -17,7 +17,7 @@ postRouter
     }
   })
   .post(async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     try {
       const newPost = await Post.create({ ...req.body });
       res.json(newPost);
