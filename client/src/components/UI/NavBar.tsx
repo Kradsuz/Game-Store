@@ -41,7 +41,7 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
-  
+    handleCloseUserMenu()
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -186,51 +186,41 @@ function NavBar(): JSX.Element {
                 
               </IconButton>
             </Tooltip>
-
-            <IconButton
-      size="large"
-      aria-label="account of current user"
-      aria-controls="menu-appbar"
-      aria-haspopup="true"
-      onClick={handleOpenUserMenu}
-      color="inherit"
-      sx={{ ml: 2 }}
-    >
-      <MenuIcon />
-    </IconButton>
-    <Menu
-      id="menu-appbar"
-      anchorEl={anchorElUser}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-      }}
-      open={Boolean(anchorElUser)}
-      onClose={handleCloseUserMenu}
-    >
-      {settings.map((setting) => (
-        <MenuItem
-          key={setting.name}
-          component={Link}
-          to={setting.link}
-          onClick={
-            setting.name === 'Logout'
-              ? logoutHandler
-              : handleCloseUserMenu
-          }
-        >
-          {setting.name}
-        </MenuItem>
-      ))}
-    </Menu>
-  </Box>
-)}
-
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting.name}>
+                {setting.name ? (
+                  <Link
+                
+                    to={setting.link}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                    onClick={setting.name === 'Logout' ? logoutHandler : undefined}
+                  >
+                    <Typography textAlign="center">{setting.name}</Typography>
+                  </Link>
+                ) : (
+                  <Typography textAlign="center">{setting.name}</Typography>
+                )}
+              </MenuItem>
+                
+              ))}
+            </Menu>
+          </Box>
         </Toolbar>
       </Container>
     </AppBar>
