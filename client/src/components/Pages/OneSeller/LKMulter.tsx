@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useAppDispatch } from '../../../features/reduxHooks';
 import { checkUserActionThunk } from '../../../features/actions/userActions';
-import LKSeller from '../LKSeller/index';
 
 export default function LKMulter(): JSX.Element {
   const [image, setImage] = useState<File | string>('');
@@ -41,7 +40,6 @@ export default function LKMulter(): JSX.Element {
           <button type="submit">Добавить</button>
         </form>
       </div>
-      <LKSeller />
-    </>
+    </div>
   );
 }
