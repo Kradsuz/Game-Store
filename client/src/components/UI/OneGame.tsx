@@ -13,7 +13,7 @@ type OneGameProps = {
 
 function OneGame({ game }: OneGameProps): JSX.Element {
   console.log(game.platforms, '<======');
-  
+
   return (
     <Grid item xs={12} sm={6} md={4} sx={{ height: 400 }}>
       <Card sx={{ height: '100%' }}>
@@ -29,11 +29,9 @@ function OneGame({ game }: OneGameProps): JSX.Element {
           <Typography gutterBottom variant="h6" component="div">
             {game.name}
           </Typography>
-          {game?.platforms?.map(
-            (platform: PlatformsType) => (
-              <Typography key={platform.id}>{platform.abbreviation}</Typography>
-            ),
-          )}
+          {game?.platforms?.map((platform: PlatformsType) => (
+            <Typography key={platform.id}>{platform.abbreviation}</Typography>
+          ))}
         </CardContent>
       </Card>
     </Grid>

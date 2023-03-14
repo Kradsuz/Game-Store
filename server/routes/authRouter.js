@@ -59,7 +59,9 @@ authRouter.post('/signin', async (req, res) => {
     const user = await User.findOne({ where: { email } });
     if (!user) return res.sendStatus(401);
     if (user && (await bcrypt.compare(pass, user.pass))) {
-      req.session.user = { id: user.id, username: user.username, email };
+      if (user.img) {
+        req.session.user = { id: user.id, username: user.username, email, img: user?.img };
+      }
       return res.json({ ...req.session.user });
     }
     return res.sendStatus(401).send('Неверный пароль');
@@ -91,6 +93,7 @@ authRouter.post('/signin', async (req, res) => {
 // });
 authRouter.get('/check', (req, res) => {
   if (req.session.user) {
+    console.log(req.session.user);
     return res.json({ ...req.session.user });
   }
   return res.sendStatus(401);

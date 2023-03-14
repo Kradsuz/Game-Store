@@ -18,12 +18,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
 
-
 const pages = [
   { name: 'Игры', link: '/games' },
   { name: 'Предложения магазина', link: '/games' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
+  { name: 'Личный кабинет', link: '/account' },
 ];
 const settings = [
   { name: 'Profile', link: '/profile' },
@@ -43,7 +43,7 @@ function NavBar(): JSX.Element {
     dispatch(logoutUserActionThunk()).catch(() => null);
     
   };
-  
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
   );
@@ -66,6 +66,7 @@ function NavBar(): JSX.Element {
     setAnchorElUser(null);
   };
 
+  const user = useAppSelector((state) => state.userData);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -146,68 +147,88 @@ function NavBar(): JSX.Element {
           </Typography>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.filter((page) => {
-              if (page.name === 'Войти' || page.name === 'Зарегистрироваться') {
-                return !isLoggedIn
-              }
-              return true 
-            }) 
-            .map((page) => (
-              <Button
-                key={page.name}
-                component={Link}
-                to={page.link}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                
-              >
-                {page.name}
-              </Button>
-            ))}
+            {pages
+              .filter((page) => {
+                if (
+                  page.name === 'Войти' ||
+                  page.name === 'Зарегистрироваться'
+                ) {
+                  return !isLoggedIn;
+                }
+                return true;
+              })
+              .map((page) => (
+                <Button
+                  key={page.name}
+                  component={Link}
+                  to={page.link}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.name}
+                </Button>
+              ))}
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          {isLoggedIn && (
+          <Box
+    sx={{
+      display: { xs: 'none', md: 'flex' },
+      alignItems: 'center',
+    }}
+  >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="o"
+                  src={`http://localhost:3001${userData.user?.img}`}
+                />
+                 <Typography variant="h6" noWrap> {userData.user?.username}</Typography>
+                
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} >
-                {setting.name ? (
-                  <Link 
-                
-                    to={setting.link}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                    onClick={setting.name === 'Logout' ? logoutHandler : undefined}
-                   
-                  >
-                    <Typography textAlign="center">{setting.name}
-                    </Typography>
-                  </Link>
-                ) : (
-                  <Typography textAlign="center">{setting.name}</Typography>
-                )}
-              </MenuItem>
-                
-              ))}
-            </Menu>
-          </Box>
+            <IconButton
+      size="large"
+      aria-label="account of current user"
+      aria-controls="menu-appbar"
+      aria-haspopup="true"
+      onClick={handleOpenUserMenu}
+      color="inherit"
+      sx={{ ml: 2 }}
+    >
+      <MenuIcon />
+    </IconButton>
+    <Menu
+      id="menu-appbar"
+      anchorEl={anchorElUser}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+      open={Boolean(anchorElUser)}
+      onClose={handleCloseUserMenu}
+    >
+      {settings.map((setting) => (
+        <MenuItem
+          key={setting.name}
+          component={Link}
+          to={setting.link}
+          onClick={
+            setting.name === 'Logout'
+              ? logoutHandler
+              : handleCloseUserMenu
+          }
+        >
+          {setting.name}
+        </MenuItem>
+      ))}
+    </Menu>
+  </Box>
+)}
         </Toolbar>
       </Container>
     </AppBar>
