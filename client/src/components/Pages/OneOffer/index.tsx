@@ -5,19 +5,14 @@ import { Card, Typography } from '@mui/material';
 import type { GameType } from '../../../types';
 
 type OneOfferProps = {
-  game: GameType;
+  offer: DBOfferType;
 };
 
 export default function OneOffer({ game }: OneOfferProps): JSX.Element {
   const dispatch = useDispatch();
 
-  const handleEdit = () => {
-    // Implement edit functionality here
-  };
 
-  const handleDelete = () => {
-    dispatch(deleteCard(game.id));
-  };
+ 
 
   return (
     <Card>
