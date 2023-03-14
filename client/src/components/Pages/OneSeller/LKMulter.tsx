@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
+import SellerOfferPage from '../LKSeller/SellerOfferPage';
 import { useAppDispatch } from '../../../features/reduxHooks';
 import { checkUserActionThunk } from '../../../features/actions/userActions';
 
@@ -24,22 +24,33 @@ export default function LKMulter(): JSX.Element {
       });
   };
   return (
-    <div className="row d-flex justify-content-center pt-5 mt-5">
-      <div
-        className="col d-flex justify-content-center"
-        style={{ width: '100%' }}
-      >
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={(event) => (event.target.files ? setImage(event.target.files[0]) : setImage(''))}
-            required
-          />
-          <button type="submit">Добавить</button>
-        </form>
+    <>
+      <div className="row d-flex justify-content-center pt-5 mt-5">
+        <div
+          className="col d-flex justify-content-center"
+          style={{ width: '100%' }}
+        >
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={(event) =>
+                event.target.files
+                  ? setImage(event.target.files[0])
+                  : setImage('')
+              }
+              required
+            />
+            <button type="submit">Добавить</button>
+          </form>
+        </div>
       </div>
-    </div>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', backgroundColor: '#f2f2f2' }}>
+  <h1 style={{ textAlign: 'center', color: '#333', fontSize: '3rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Мои предложения</h1>
+</div>
+
+      <SellerOfferPage />
+    </>
   );
 }

@@ -66,8 +66,9 @@ gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
     const userId = req.session.user.id;
     const allOffersSeller = await Offer.findAll({
       where: { sellerId: userId },
-      include: [{ model: Game }],
+      include: [{ model: Game }, { model: Platform }],
     });
+    console.log(allOffersSeller);
     res.json(allOffersSeller);
   } catch (err) {
     console.log(err);
