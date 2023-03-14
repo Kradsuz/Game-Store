@@ -187,7 +187,7 @@ function NavBar(): JSX.Element {
                   </Typography>
                   <Avatar
                     alt="o"
-                    src={`http://localhost:3001${userData.user?.img}`}
+                    src={`http://localhost:3001${userData.user?.img as string}` }
                     sx={{ marginLeft: '16px' }}
                   />
                 </IconButton>
