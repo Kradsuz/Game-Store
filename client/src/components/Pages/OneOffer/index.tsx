@@ -8,17 +8,29 @@ type OneOfferProps = {
   offer: DBOfferType;
 };
 
-export default function OneOffer({ game }: OneOfferProps): JSX.Element {
+// const useStyles = makeStyles({
+//   root: {
+//     display: 'flex',
+//     // justifyContent: 'space-between',
+//     marginBottom: 1,
+//   },
+// });
+
+export default function OneOffer({offer}:OneOfferProps): JSX.Element {
+  // const classes = useStyles();
   const dispatch = useDispatch();
 
 
  
 
   return (
-    <Card>
-      <Typography gutterBottom variant="h5" component="h2" align="center">
-        {game.name}
-      </Typography>
+    <Card >
+          <Typography gutterBottom variant="h5" component="h2" align="center">
+            {offer.price}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="h2" align="center">
+            {offer.time}
+          </Typography>
     </Card>
   );
 }

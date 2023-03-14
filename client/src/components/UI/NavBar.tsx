@@ -17,6 +17,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
+import type { UserFromBackend } from '../../types';
 
 const pages = [
   { name: 'Игры', link: '/games' },
@@ -143,6 +144,7 @@ function NavBar(): JSX.Element {
           >
             GameStore
           </Typography>
+
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages
