@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useAppDispatch } from '../../../features/reduxHooks';
 import { checkUserActionThunk } from '../../../features/actions/userActions';
+import LKSeller from '../LKSeller/index';
 
 export default function LKMulter(): JSX.Element {
   const [image, setImage] = useState(null);
@@ -23,23 +24,26 @@ export default function LKMulter(): JSX.Element {
       });
   };
   return (
-    <div className="row d-flex justify-content-center pt-5 mt-5">
-      <div
-        className="col d-flex justify-content-center"
-        style={{ width: '100%' }}
-      >
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <label htmlFor="image">Фото:</label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={(event) => setImage(event.target.files[0])}
-            required
-          />
-          <button type="submit">Добавить</button>
-        </form>
+    <>
+      <div className="row d-flex justify-content-center pt-5 mt-5">
+        <div
+          className="col d-flex justify-content-center"
+          style={{ width: '100%' }}
+        >
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <label htmlFor="image">Сменить аватар</label>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              onChange={(event) => setImage(event.target.files[0])}
+              required
+            />
+            <button type="submit">Добавить</button>
+          </form>
+        </div>
       </div>
-    </div>
+      <LKSeller />
+    </>
   );
 }
