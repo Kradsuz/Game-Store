@@ -21,7 +21,7 @@ import { logoutUserActionThunk } from '../../features/actions/userActions';
 
 const pages = [
   { name: 'Игры', link: '/games' },
-  { name: 'Предложения магазина', link: '/sellers' },
+  { name: 'Предложения магазина', link: '/games' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
 ];

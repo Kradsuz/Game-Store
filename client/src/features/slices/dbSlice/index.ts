@@ -29,7 +29,6 @@ const dbSlice = createSlice({
     builder.addCase(
       getOffersThunkAction.fulfilled,
       (state, action) => {
-        console.log(action.payload)
         state.gameOffers = action.payload;
       },
     );
