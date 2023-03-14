@@ -16,4 +16,5 @@ export type DBOfferType = {
     sellerId: number
     platformId: number
     gameId: number
+    Game?:DbGameType
 }

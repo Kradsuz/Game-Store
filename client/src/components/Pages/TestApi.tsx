@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import getGamesThunkAction from '../../features/actions/gameThunkActions';
 import OneGame from '../UI/OneGame';
+import { getOfferBySellerThunkAction } from '../../features/actions/dbThunkActions';
 
 export default function TestApi(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,23 +21,23 @@ export default function TestApi(): JSX.Element {
   const search = useAppSelector((state) => state.apiData.games);
 
   return (
-    <Grid container spacing={5}>
-      <Grid item xs={12}>
-        <form onSubmit={submitHandler}>
-          <TextField
-            label="Game"
-            placeholder="Enter email"
-            inputRef={gameInputRef}
-          />
-          <Button variant="contained" color="primary" type="submit">
-            Submit
-          </Button>
-        </form>
-      </Grid>
+      <Grid container spacing={5}>
+        <Grid item xs={12}>
+          <form onSubmit={submitHandler}>
+            <TextField
+              label="Game"
+              placeholder="Enter email"
+              inputRef={gameInputRef}
+            />
+            <Button variant="contained" color="primary" type="submit">
+              Submit
+            </Button>
+          </form>
+        </Grid>
 
-      {search.map((el) => (
-        <OneGame key={el.id} game={el} />
-      ))}
-    </Grid>
+        {search.map((el) => (
+          <OneGame key={el.id} game={el} />
+        ))}
+      </Grid>
   );
 }
