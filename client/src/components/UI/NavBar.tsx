@@ -41,7 +41,6 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
-  
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -146,6 +145,7 @@ function NavBar(): JSX.Element {
             GameStore
           </Typography>
 
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages
               .filter((page) => {
@@ -170,34 +170,29 @@ function NavBar(): JSX.Element {
               ))}
           </Box>
           {isLoggedIn && (
-          <Box
-    sx={{
-      display: { xs: 'none', md: 'flex' },
-      alignItems: 'center',
-    }}
-  >
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="o"
-                  src={`http://localhost:3001${userData.user?.img as string}`}
-                />
-                 <Typography variant="h6" noWrap> {userData.user?.username}</Typography>
-                
-              </IconButton>
-            </Tooltip>
+            <Box
+              sx={{
+                display: { xs: 'none', md: 'flex' },
+                alignItems: 'center',
+              }}
+            >
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    sx={{ marginRight: '16px', color: '#fff' }}
+                  >
+                    {userData.user?.username}
+                  </Typography>
+                  <Avatar
+                    alt="o"
+                    src={`http://localhost:3001${userData.user?.img}`}
+                    sx={{ marginLeft: '16px' }}
+                  />
+                </IconButton>
+              </Tooltip>
 
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenUserMenu}
-                color="inherit"
-                sx={{ ml: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElUser}
