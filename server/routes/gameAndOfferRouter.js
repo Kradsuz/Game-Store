@@ -68,6 +68,7 @@ gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
       where: { sellerId: userId },
       include: [{ model: Game }],
     });
+    console.log(allOffersSeller);
     res.json(allOffersSeller);
   } catch (err) {
     console.log(err);
