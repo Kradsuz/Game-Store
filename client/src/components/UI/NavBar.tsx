@@ -23,7 +23,6 @@ const pages = [
   { name: 'Предложения магазина', link: '/games' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
-  { name: 'Личный кабинет', link: '/account' },
 ];
 const settings = [
   { name: 'Profile', link: '/profile' },
@@ -41,7 +40,6 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
-    
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -186,6 +184,7 @@ function NavBar(): JSX.Element {
                 
               </IconButton>
             </Tooltip>
+
             <IconButton
       size="large"
       aria-label="account of current user"
@@ -229,6 +228,7 @@ function NavBar(): JSX.Element {
     </Menu>
   </Box>
 )}
+
         </Toolbar>
       </Container>
     </AppBar>
