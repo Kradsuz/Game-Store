@@ -61,4 +61,18 @@ gameAndOfferRouter.post("/", async (req, res) => {
   res.json(allGame);
 });
 
+gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    const allOffersSeller = await Offer.findAll({
+      where: { sellerId: userId },
+      include: [{ model: Game }],
+    });
+    res.json(allOffersSeller);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
 module.exports = gameAndOfferRouter;
