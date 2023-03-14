@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useAppDispatch } from '../../../features/reduxHooks';
+import { checkUserActionThunk } from '../../../features/actions/userActions';
 
 export default function LKMulter(): JSX.Element {
   const [image, setImage] = useState(null);
+  const dispatch = useAppDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -12,9 +15,8 @@ export default function LKMulter(): JSX.Element {
       .patch('/api/avatar/addAvatar', formData)
       .then(() => {
         console.log('Card added to database');
-
+        dispatch(checkUserActionThunk()).catch((err) => console.log(err));
         setImage(null);
-        window.location.href = '/account';
       })
       .catch((error) => {
         console.error('Error adding card to database', error);

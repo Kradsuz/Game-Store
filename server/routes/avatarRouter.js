@@ -29,6 +29,7 @@ avatarRouter.patch("/addAvatar", upload.single("image"), async (req, res) => {
         where: { id: userId },
       }
     );
+    req.session.user.img = avatar.slice(6, avatar.length);
     res.sendStatus(200);
   } catch (err) {
     console.log(err);
