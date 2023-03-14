@@ -41,7 +41,7 @@ gameAndOfferRouter.post("/add", async (req, res) => {
     gameId: createGame[0].dataValues.id,
   });
 });
-gameAndOfferRouter.post("/offers", async (req, res) => {
+gameAndOfferRouter.post("/sellers", async (req, res) => {
   try {
     const gameAndOfferId = req.body.id;
     const gameAndOffers = await Game.findOne({

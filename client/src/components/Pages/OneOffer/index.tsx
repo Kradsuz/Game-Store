@@ -1,19 +1,19 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import  makeStyles  from '@mui/styled-engine';
+import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteCard } from '../actions/cards';
-import type { GameType } from '../../../types';
+import type { DBOfferType, GameType } from '../../../types';
 
 type OneOfferProps = {
-  game: GameType;
+  offer: DBOfferType;
 };
 
 const useStyles = makeStyles({
@@ -32,39 +32,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function OneOffer({ game }: OneOfferProps): JSX.Element {
+export default function OneOffer({offer}:OneOfferProps): JSX.Element {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
-  const handleEdit = () => {
-    // Implement edit functionality here
-  };
 
-  const handleDelete = () => {
-    dispatch(deleteCard(game.id));
-  };
+ 
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game?.cover?.image_id}.jpg`}
-          title={game.name}
-        />
+
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            {game.name}
+            {offer.price}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="h2" align="center">
+            {offer.time}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <div className={classes.actions}>
-        <IconButton onClick={handleEdit}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={handleDelete}>
-          <DeleteIcon />
-        </IconButton>
-      </div>
     </Card>
   );
 }
