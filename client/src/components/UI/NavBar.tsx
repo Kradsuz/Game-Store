@@ -145,7 +145,6 @@ function NavBar(): JSX.Element {
             GameStore
           </Typography>
 
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages
               .filter((page) => {
@@ -188,7 +187,7 @@ function NavBar(): JSX.Element {
                   <Avatar
                     alt="o"
                     src={`http://localhost:3001${userData.user?.img}`}
-                    sx={{ marginLeft: '16px' }}
+                    sx={{ marginLeft: '16px', width: 66, height: 66 }}
                   />
                 </IconButton>
               </Tooltip>
