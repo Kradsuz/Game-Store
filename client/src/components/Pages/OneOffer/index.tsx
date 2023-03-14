@@ -1,14 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import  makeStyles  from '@mui/styled-engine';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { Card, Typography } from '@mui/material';
 
-
-import type { DBOfferType, GameType } from '../../../types';
+import type { GameType } from '../../../types';
 
 type OneOfferProps = {
   offer: DBOfferType;
