@@ -41,7 +41,7 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
-    handleCloseUserMenu()
+    
   };
   
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -144,6 +144,7 @@ function NavBar(): JSX.Element {
           >
             GameStore
           </Typography>
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.filter((page) => {
               if (page.name === 'Войти' || page.name === 'Зарегистрироваться') {
@@ -158,12 +159,12 @@ function NavBar(): JSX.Element {
                 to={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                
               >
                 {page.name}
               </Button>
             ))}
           </Box>
-
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -187,15 +188,17 @@ function NavBar(): JSX.Element {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.name}>
+                <MenuItem key={setting.name} >
                 {setting.name ? (
-                  <Link
+                  <Link 
                 
                     to={setting.link}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                     onClick={setting.name === 'Logout' ? logoutHandler : undefined}
+                   
                   >
-                    <Typography textAlign="center">{setting.name}</Typography>
+                    <Typography textAlign="center">{setting.name}
+                    </Typography>
                   </Link>
                 ) : (
                   <Typography textAlign="center">{setting.name}</Typography>
