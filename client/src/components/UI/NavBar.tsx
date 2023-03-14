@@ -23,7 +23,6 @@ const pages = [
   { name: 'Предложения магазина', link: '/games' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
-  { name: 'Личный кабинет', link: '/account' },
 ];
 const settings = [
   { name: 'Profile', link: '/profile' },
@@ -41,7 +40,7 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
-    handleCloseUserMenu()
+    handleCloseUserMenu();
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -196,20 +195,20 @@ function NavBar(): JSX.Element {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting.name}>
-                {setting.name ? (
-                  <Link
-                
-                    to={setting.link}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                    onClick={setting.name === 'Logout' ? logoutHandler : undefined}
-                  >
+                  {setting.name ? (
+                    <Link
+                      to={setting.link}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                      onClick={
+                        setting.name === 'Logout' ? logoutHandler : undefined
+                      }
+                    >
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </Link>
+                  ) : (
                     <Typography textAlign="center">{setting.name}</Typography>
-                  </Link>
-                ) : (
-                  <Typography textAlign="center">{setting.name}</Typography>
-                )}
-              </MenuItem>
-                
+                  )}
+                </MenuItem>
               ))}
             </Menu>
           </Box>

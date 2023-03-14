@@ -33,6 +33,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/games" element={<TestApi />} />
+        <Route path="/account" element={<LKMulter />} />
         <Route path="/games/:id" element={<OneGameDetailed />} />
         <Route
           element={
