@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import type { DbGameType, DBOfferType } from '../../../types';
 import {getDBGamesThunkAction, getOfferBySellerThunkAction, getOffersThunkAction} from '../../actions/dbThunkActions';
 
@@ -6,6 +7,7 @@ type InitialStateType = {
   gameOffers: DbGameType;
   dbGames: DbGameType[];
   sellerOffers: DBOfferType[];
+  originalDbGames: DbGameType[]; // добавляем свойство для хранения исходного массива элементов
 };
 
 const initialState: InitialStateType = {
@@ -20,13 +22,23 @@ const initialState: InitialStateType = {
     summaru: '',
     Offers: []},
     dbGames: [],
-    sellerOffers: []
+    sellerOffers: [],
+    originalDbGames: [] // инициализируем свойство пустым массивом
 };
 
 const dbSlice = createSlice({
   name: 'gamesSlice',
   initialState,
   reducers: {
+    checkFeature(state, action: PayloadAction<string>) {
+      if (!action.payload.trim()) { // если пустая строка, возвращаем исходный массив элементов
+        state.dbGames = state.originalDbGames;
+      } else {
+        state.dbGames = state.originalDbGames.filter(el =>
+          el.name.toLowerCase().includes(action.payload.trim().toLowerCase())
+        );
+      }
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -40,6 +52,7 @@ const dbSlice = createSlice({
       getDBGamesThunkAction.fulfilled,
       (state, action) => {
         state.dbGames = action.payload;
+        state.originalDbGames = action.payload; // сохраняем исходный массив элементов
       },
     )
     .addCase(
@@ -54,3 +67,4 @@ const dbSlice = createSlice({
 
 
 export default dbSlice.reducer;
+export const {checkFeature} = dbSlice.actions;
