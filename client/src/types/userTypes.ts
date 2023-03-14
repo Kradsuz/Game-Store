@@ -1,6 +1,7 @@
 export type UserFromBackend = {
   id: number;
   username: string;
+  img: string
 };
 
 export type UserLoginForm = {

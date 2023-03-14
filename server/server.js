@@ -9,6 +9,7 @@ const authRouter = require("./routes/authRouter");
 const postRouter = require("./routes/PostRouter");
 const wordRouter = require("./routes/wordRouter");
 const gameAndOfferRouter = require("./routes/gameAndOfferRouter");
+const avatarRouter = require("./routes/avatarRouter");
 
 const FileStore = store(session);
 const PORT = 3001;
@@ -40,6 +41,7 @@ app.use("/api/posts", postRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/word", wordRouter);
 app.use("/api/games", gameAndOfferRouter);
+app.use("/api/avatar", avatarRouter);
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ clientTracking: false, noServer: true });
