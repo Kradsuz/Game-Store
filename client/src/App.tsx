@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import LoginPage from './components/Pages/LoginPage';
 import MainPage from './components/Pages/MainPage';
+import LKMulter from './components/Pages/OneSeller/LKMulter';
 import RegisterPage from './components/Pages/RegisterPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
