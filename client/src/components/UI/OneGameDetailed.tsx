@@ -18,7 +18,7 @@ import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { modalAction } from '../../features/slices/gamesSlice';
 import type { GameType, PlatformsType } from '../../types';
-import { getOffersThunkAction } from '../../features/actions/dbThunkActions';
+import { getDBGamesThunkAction, getOffersThunkAction } from '../../features/actions/dbThunkActions';
 import SellerOffers from '../Pages/SellerOffers';
 
 

@@ -31,3 +31,16 @@ export const getDBGamesThunkAction = createAsyncThunk<DbGameType[]>(
       }
     },
   );
+
+  export const getOfferBySellerThunkAction = createAsyncThunk<DbGameType[]>(
+    'offers/fetch',
+    async () => {
+      try {
+        const response = await axios.post<DbGameType[]>('/api/games/allOffersSeller');
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+  );
