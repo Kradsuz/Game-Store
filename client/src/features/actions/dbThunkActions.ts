@@ -9,8 +9,7 @@ export const getOffersThunkAction = createAsyncThunk<DbGameType, number>(
       const response = await axios.post<DbGameType>('/api/games/sellers', {
         id,
       });
-      console.log(response.data);
-
+      response.data.Offers?.reverse()
       return response.data;
     } catch (error) {
       console.error(error);
