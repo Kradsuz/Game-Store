@@ -1,5 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-export default function MainPage(): JSX.Element {
-  <div />;
+export default function MainPage():JSX.Element {
+  return (
+    <div>MainPage</div>
+  )
 }

@@ -12,8 +12,6 @@ type OneGameProps = {
 };
 
 function OneGame({ game }: OneGameProps): JSX.Element {
-  console.log(game.platforms, '<======');
-
   return (
     <Grid item xs={12} sm={6} md={4} sx={{ height: 400 }}>
       <Card sx={{ height: '100%' }}>

@@ -17,6 +17,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
+import type { UserFromBackend } from '../../types';
 
 const pages = [
   { name: 'Игры', link: '/games' },
@@ -41,7 +42,7 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
-    handleCloseUserMenu()
+  
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -174,7 +175,7 @@ function NavBar(): JSX.Element {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   alt="o"
-                  src={`http://localhost:3001${userData.user?.img}`}
+                  src={`http://localhost:3001${userData.user?.img as string}`}
                 />
               </IconButton>
             </Tooltip>
@@ -196,20 +197,20 @@ function NavBar(): JSX.Element {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting.name}>
-                {setting.name ? (
-                  <Link
-                
-                    to={setting.link}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                    onClick={setting.name === 'Logout' ? logoutHandler : undefined}
-                  >
+                  {setting.name ? (
+                    <Link
+                      to={setting.link}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                      onClick={
+                        setting.name === 'Logout' ? logoutHandler : undefined
+                      }
+                    >
+                      <Typography textAlign="center">{setting.name}</Typography>
+                    </Link>
+                  ) : (
                     <Typography textAlign="center">{setting.name}</Typography>
-                  </Link>
-                ) : (
-                  <Typography textAlign="center">{setting.name}</Typography>
-                )}
-              </MenuItem>
-                
+                  )}
+                </MenuItem>
               ))}
             </Menu>
           </Box>

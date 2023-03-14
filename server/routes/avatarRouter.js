@@ -19,10 +19,10 @@ const upload = multer({ storage });
 avatarRouter.patch("/addAvatar", upload.single("image"), async (req, res) => {
   try {
     const userId = req.session.user.id;
-    console.log(userId);
+    // console.log(userId);
     const avatar = req.file.path;
 
-    console.log(avatar);
+    // console.log(avatar);
     await User.update(
       { img: avatar.slice(6, avatar.length) },
       {
