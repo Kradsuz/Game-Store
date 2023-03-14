@@ -17,6 +17,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
+import type { UserFromBackend } from '../../types';
 
 const pages = [
   { name: 'Игры', link: '/games' },
@@ -40,6 +41,7 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
+  
   };
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -168,24 +170,22 @@ function NavBar(): JSX.Element {
               ))}
           </Box>
           {isLoggedIn && (
-            <Box
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                alignItems: 'center',
-              }}
-            >
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="o"
-                    src={`http://localhost:3001${userData.user?.img}`}
-                  />
-                  <Typography variant="h6" noWrap>
-                    {' '}
-                    {userData.user?.username}
-                  </Typography>
-                </IconButton>
-              </Tooltip>
+          <Box
+    sx={{
+      display: { xs: 'none', md: 'flex' },
+      alignItems: 'center',
+    }}
+  >
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar
+                  alt="o"
+                  src={`http://localhost:3001${userData.user?.img as string}`}
+                />
+                 <Typography variant="h6" noWrap> {userData.user?.username}</Typography>
+                
+              </IconButton>
+            </Tooltip>
 
               <IconButton
                 size="large"

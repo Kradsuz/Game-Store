@@ -15,13 +15,12 @@ import {
   RadioGroup,
 } from '@mui/material';
 import axios from 'axios';
+import { Container } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { modalAction } from '../../features/slices/gamesSlice';
 import type { GameType, PlatformsType } from '../../types';
 import { getDBGamesThunkAction, getOffersThunkAction } from '../../features/actions/dbThunkActions';
 import SellerOffers from '../Pages/SellerOffers';
-
-
 
 export default function OneGameDetailed(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -33,7 +32,6 @@ export default function OneGameDetailed(): JSX.Element {
 
   const modal = useAppSelector((state) => state.apiData.modal);
 
-
   const handleClickOpen = (data: GameType | false): void => {
     dispatch(modalAction(data));
   };
@@ -41,7 +39,6 @@ export default function OneGameDetailed(): JSX.Element {
   const handleClose = (): void => {
     dispatch(modalAction(false));
   };
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -63,15 +60,10 @@ export default function OneGameDetailed(): JSX.Element {
     dispatch(getOffersThunkAction(data)).catch(() => {});
   };
 
-
   return (
-    <div>
-      <SellerOffers id={Number(id)} />
-      {game && (
-        <Button variant="outlined" onClick={() => handleClickOpen(game)}>
-          Add new Offer
-        </Button>
-      )}
+    <Container>
+
+      
       <Dialog open={!!modal} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
@@ -118,6 +110,12 @@ export default function OneGameDetailed(): JSX.Element {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+      <SellerOffers id={Number(id)} />
+      {game && (
+        <Button variant="outlined" onClick={() => handleClickOpen(game)}>
+          Add new Offer
+        </Button>
+      )}
+    </Container>
   );
 }
