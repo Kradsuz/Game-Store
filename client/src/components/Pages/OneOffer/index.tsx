@@ -18,18 +18,14 @@ type OneOfferProps = {
 
 export default function OneOffer({offer}:OneOfferProps): JSX.Element {
   // const classes = useStyles();
-  const dispatch = useDispatch();
-
-
- 
 
   return (
     <Card >
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            {offer.price}
+            Price: {offer.price} $
           </Typography>
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            {offer.time}
+            Conditions : {offer.time}, Platform: {offer.Platform?.name}
           </Typography>
     </Card>
   );

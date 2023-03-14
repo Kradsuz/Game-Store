@@ -25,9 +25,11 @@ import SellerOffers from '../Pages/SellerOffers';
 export default function OneGameDetailed(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  
   const game = useAppSelector((state) =>
     state.apiData.games.find((el) => el.id === Number(id)),
   );
+  
   const user = useAppSelector((state) => state.userData.user);
 
   const modal = useAppSelector((state) => state.apiData.modal);
@@ -71,8 +73,6 @@ export default function OneGameDetailed(): JSX.Element {
 
   return (
     <Container>
-
-      
       <Dialog open={!!modal} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
@@ -92,6 +92,7 @@ export default function OneGameDetailed(): JSX.Element {
                     value={platform?.abbreviation}
                     control={<Radio />}
                     label={platform?.abbreviation}
+                    key={platform.id}
                   />
                 ))}
               </RadioGroup>
