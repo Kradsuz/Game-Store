@@ -19,15 +19,15 @@ export const getOffersThunkAction = createAsyncThunk<DbGameType, number>(
   },
 );
 
-// export const getDBGamesThunkAction = createAsyncThunk<GameType[], string>(
-//     'games/fetch',
-//     async () => {
-//       try {
-//         const response = await axios.post<GameType[]>('/api/games');
-//         return response.data;
-//       } catch (error) {
-//         console.error(error);
-//         throw error;
-//       }
-//     },
-//   );
+export const getDBGamesThunkAction = createAsyncThunk<DbGameType[]>(
+    'gamesDB/fetch',
+    async () => {
+      try {
+        const response = await axios.post<DbGameType[]>('/api/games');
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+  );

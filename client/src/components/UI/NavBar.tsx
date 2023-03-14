@@ -13,17 +13,17 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
 
-
 const pages = [
   { name: 'Игры', link: '/games' },
-  { name: 'Предложения магазина', link: '/sellers' },
+  { name: 'Предложения магазина', link: '/games' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
+  { name: 'Личный кабинет', link: '/account' },
 ];
 const settings = [
   { name: 'Profile', link: '/profile' },
@@ -33,6 +33,7 @@ const settings = [
 ];
 
 function NavBar(): JSX.Element {
+  const location = useLocation();
   const userData = useAppSelector((state) => state.userData);
   const online = useAppSelector((state) => state.socketData.online);
   const isLoggedIn = !!userData.user;
@@ -40,8 +41,9 @@ function NavBar(): JSX.Element {
 
   const logoutHandler = (): void => {
     dispatch(logoutUserActionThunk()).catch(() => null);
+    handleCloseUserMenu()
   };
-  
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
   );
@@ -64,6 +66,7 @@ function NavBar(): JSX.Element {
     setAnchorElUser(null);
   };
 
+  const user = useAppSelector((state) => state.userData);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -143,29 +146,36 @@ function NavBar(): JSX.Element {
             GameStore
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.filter((page) => {
-              if (page.name === 'Войти' || page.name === 'Зарегистрироваться') {
-                return !isLoggedIn
-              }
-              return true 
-            }) 
-            .map((page) => (
-              <Button
-                key={page.name}
-                component={Link}
-                to={page.link}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page.name}
-              </Button>
-            ))}
+            {pages
+              .filter((page) => {
+                if (
+                  page.name === 'Войти' ||
+                  page.name === 'Зарегистрироваться'
+                ) {
+                  return !isLoggedIn;
+                }
+                return true;
+              })
+              .map((page) => (
+                <Button
+                  key={page.name}
+                  component={Link}
+                  to={page.link}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.name}
+                </Button>
+              ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="o"
+                  src={`http://localhost:3001${userData.user?.img}`}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -185,19 +195,21 @@ function NavBar(): JSX.Element {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  {setting.name === 'Logout' ? (
-                    <Link
-                    onClick={logoutHandler}
-                      to={setting.link}
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <Typography textAlign="center">{setting.name}</Typography>
-                    </Link>
-                  ) : (
+                <MenuItem key={setting.name}>
+                {setting.name ? (
+                  <Link
+                
+                    to={setting.link}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                    onClick={setting.name === 'Logout' ? logoutHandler : undefined}
+                  >
                     <Typography textAlign="center">{setting.name}</Typography>
-                  )}
-                </MenuItem>
+                  </Link>
+                ) : (
+                  <Typography textAlign="center">{setting.name}</Typography>
+                )}
+              </MenuItem>
+                
               ))}
             </Menu>
           </Box>

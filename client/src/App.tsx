@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
 import { Route, Routes } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import LoginPage from './components/Pages/LoginPage';
 import MainPage from './components/Pages/MainPage';
+import LKMulter from './components/Pages/OneSeller/LKMulter';
 import RegisterPage from './components/Pages/RegisterPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
@@ -32,9 +32,8 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/sellers" element={<TestApi />} />
-        <Route path="/sellers/:id" element={<OneGameDetailed />} />
-
+        <Route path="/games" element={<TestApi />} />
+        <Route path="/games/:id" element={<OneGameDetailed />} />
         <Route
           element={
             <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
