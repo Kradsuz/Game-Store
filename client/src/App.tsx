@@ -6,6 +6,7 @@ import LoginPage from './components/Pages/LoginPage';
 import MainPage from './components/Pages/MainPage';
 import LKMulter from './components/Pages/OneSeller/LKMulter';
 import RegisterPage from './components/Pages/RegisterPage';
+import StartPage from './components/Pages/StartPage/StartPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
 import OneGameDetailed from './components/UI/OneGameDetailed';
@@ -31,7 +32,7 @@ function App(): JSX.Element {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<StartPage />} />
         <Route path="/games" element={<TestApi />} />
         <Route path="/account" element={<LKMulter />} />
         <Route path="/games/:id" element={<OneGameDetailed />} />
