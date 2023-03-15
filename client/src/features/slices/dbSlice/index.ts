@@ -63,7 +63,7 @@ const dbSlice = createSlice({
     )
     .addCase(
       deleteOfferThunkAction.fulfilled,
-      (state, action) => {
+      (state, action: PayloadAction<number>) => {
         state.sellerOffers = state.sellerOffers.filter(el => el.id !== action.payload)
       },
     )
