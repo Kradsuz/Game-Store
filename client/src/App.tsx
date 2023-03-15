@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from './features/reduxHooks';
 
 function App(): JSX.Element {
   const status = useAppSelector((state) => state.userData.status);
+  const roleId = useAppSelector((state) => state.userData.user?.roleId);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,9 +33,16 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/games" element={<TestApi />} />
+        {/* <Route path="/games" element={<TestApi />} /> */}
         <Route path="/account" element={<LKMulter />} />
         <Route path="/games/:id" element={<OneGameDetailed />} />
+        <Route
+          element={
+            <PrivateRouter isAllowed={!(roleId === 1)} redirectTo="/" />
+          }
+        >
+           <Route path="/games" element={<TestApi />} />
+        </Route>
         <Route
           element={
             <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
