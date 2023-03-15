@@ -31,11 +31,6 @@ const dbSlice = createSlice({
   name: 'gamesSlice',
   initialState,
   reducers: {
-    deleteByid(state, action: PayloadAction<number>) {
-      state.sellerOffers = [...state.sellerOffers].filter(
-        (el) => el.id !== action.payload,
-      );
-    },
     checkFeature(state, action: PayloadAction<string>) {
       if (!action.payload.trim()) {
         // если пустая строка, возвращаем исходный массив элементов
