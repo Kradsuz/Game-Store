@@ -1,6 +1,7 @@
 export type UserFromBackend = {
   id: number;
   username: string;
+  roleId: number;
   img: string
 };
 

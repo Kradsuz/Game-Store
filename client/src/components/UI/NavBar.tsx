@@ -13,11 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
-import type { UserFromBackend } from '../../types';
 
 const pages = [
   { name: 'Игры', link: '/games' },
@@ -26,14 +25,12 @@ const pages = [
   { name: 'Зарегистрироваться', link: '/auth/signup' },
 ];
 const settings = [
-  { name: 'Profile', link: '/profile' },
+
   { name: 'Личный кабинет', link: '/account' },
-  { name: 'Dashboard', link: '/dashboard' },
   { name: 'Logout', link: '/' },
 ];
 
 function NavBar(): JSX.Element {
-  const location = useLocation();
   const userData = useAppSelector((state) => state.userData);
   const online = useAppSelector((state) => state.socketData.online);
   const isLoggedIn = !!userData.user;
@@ -64,9 +61,8 @@ function NavBar(): JSX.Element {
   const handleCloseUserMenu = (): void => {
     setAnchorElUser(null);
   };
-
-  const user = useAppSelector((state) => state.userData);
   return (
+    <Box  sx={{flexGrow: 1}}>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -153,6 +149,8 @@ function NavBar(): JSX.Element {
                   page.name === 'Зарегистрироваться'
                 ) {
                   return !isLoggedIn;
+                } else if (page.name === 'Игры') {
+                  return userData.user?.roleId !== 1
                 }
                 return true;
               })
@@ -176,7 +174,7 @@ function NavBar(): JSX.Element {
               }}
             >
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={handleOpenUserMenu}>
                   <Typography
                     variant="h6"
                     noWrap
@@ -227,6 +225,7 @@ function NavBar(): JSX.Element {
         </Toolbar>
       </Container>
     </AppBar>
+    </Box>
   );
 }
 export default NavBar;
