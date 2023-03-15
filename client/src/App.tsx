@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
@@ -34,19 +33,19 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        {/* <Route path="/games" element={<TestApi />} /> */}
+        <Route path="/db" element={<MainPage />} />
         <Route path="/account" element={<LKMulter />} />
         <Route path="/games/:id" element={<OneGameDetailed />} />
         <Route
           element={
-            <PrivateRouter isAllowed={!(roleId === 1)} redirectTo="/" />
+            <PrivateRouter isAllowed={!(roleId === 1) && (status === 'logged')} redirectTo="/" />
           }
         >
            <Route path="/games" element={<TestApi />} />
         </Route>
         <Route
           element={
-            <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/" />
+            <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/db" />
           }
         >
           <Route
