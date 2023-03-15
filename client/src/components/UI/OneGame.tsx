@@ -14,16 +14,33 @@ type OneGameProps = {
 function OneGame({ game }: OneGameProps): JSX.Element {
   return (
     <Grid item xs={12} sm={6} md={4} sx={{ height: 400 }}>
-      <Card sx={{ height: '100%' }}>
+      <Card
+        sx={{
+          display: 'flex',
+          marginTop: 3,
+          marginLeft: 6,
+          width: '420px',
+          height: '250px',
+        }}
+      >
         <Link to={`/games/${game.id}`}>
           <CardMedia
             component="img"
             alt="gameImg"
             height="200"
-            image={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.cover?.image_id}.jpg`}
+            image={`https://images.igdb.com/igdb/image/upload/t_720p/${game?.cover?.image_id}.jpg`}
+            sx={{ height: '100%', width: '100%' }}
           />
         </Link>
-        <CardContent className="d-flex flex-column">
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: 3,
+            width: '50%',
+          }}
+        >
           <Typography gutterBottom variant="h6" component="div">
             {game.name}
           </Typography>

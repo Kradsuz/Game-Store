@@ -30,7 +30,27 @@ export default function LKMulter(): JSX.Element {
           className="col d-flex justify-content-center"
           style={{ width: '100%' }}
         >
-          <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <form
+            onSubmit={handleSubmit}
+            encType="multipart/form-data"
+            style={{
+              marginBottom: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <label
+              htmlFor="image"
+              style={{
+                backgroundColor: '#f0f0f0',
+                padding: '10px',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                marginBottom: '',
+              }}
+            >
+              Выберите аватар
+            </label>
             <input
               type="file"
               id="image"
@@ -41,14 +61,45 @@ export default function LKMulter(): JSX.Element {
                   : setImage('')
               }
               required
+              style={{ display: 'none' }}
             />
-            <button type="submit">Добавить</button>
+            <button
+              type="submit"
+              style={{
+                backgroundColor: '#1E90FF',
+                color: 'white',
+                padding: '10px',
+                borderRadius: '5px',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              Добавить
+            </button>
           </form>
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '10vh', backgroundColor: '#f2f2f2' }}>
-  <h1 style={{ textAlign: 'center', color: '#333', fontSize: '3rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Мои предложения</h1>
-</div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '10vh',
+          backgroundColor: '#f2f2f2',
+        }}
+      >
+        <h1
+          style={{
+            textAlign: 'center',
+            color: '#333',
+            fontSize: '3rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
+          }}
+        >
+          Мои предложения
+        </h1>
+      </div>
 
       <SellerOfferPage />
     </>

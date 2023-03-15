@@ -11,27 +11,39 @@ type OneGameProps = {
 };
 
 function OneGame({ game }: OneGameProps): JSX.Element {
-  console.log(game);
-
   return (
-    <Grid item xs={4} sx={{ height: '100%' }}>
+    <Grid item xs={12} sm md sx={{ height: '100%' }}>
       <Card
-        sx={{ marginTop: 3, marginLeft: 6, width: '380px', height: '350px' }}
+        sx={{
+          display: 'flex',
+          marginTop: 3,
+          marginLeft: 6,
+          width: '420px',
+          height: '250px',
+        }}
       >
         {/* <Link to={`/games/${game.id}`}> */}
         <CardMedia
           component="img"
           alt="gameImg"
-          height='230'
-          image={`https://images.igdb.com/igdb/image/upload/t_screenshot_med/${game?.cover}.jpg`}
+          height="200"
+          image={`https://images.igdb.com/igdb/image/upload/t_720p/${game?.cover}.jpg`}
+          sx={{ height: '100%', width: '45%' }}
         />
         {/* </Link> */}
-        <CardContent sx={{ marginTop: 'auto', marginBottom: 'auto', padding: 3 }}>
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: 3,
+            width: '50%',
+          }}
+        >
           <Typography gutterBottom variant="h6" component="div">
             {game.name}
           </Typography>
-          <Typography>{game.genres}</Typography>
-          <Typography>{game.cover}</Typography>
+          <Typography>{game.date}</Typography>
         </CardContent>
       </Card>
     </Grid>

@@ -62,6 +62,7 @@ function NavBar(): JSX.Element {
     setAnchorElUser(null);
   };
   return (
+    <Box  sx={{flexGrow: 1}}>
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -224,6 +225,7 @@ function NavBar(): JSX.Element {
         </Toolbar>
       </Container>
     </AppBar>
+    </Box>
   );
 }
 export default NavBar;

@@ -43,3 +43,16 @@ export const getDBGamesThunkAction = createAsyncThunk<DbGameType[]>(
       }
     },
   );
+
+  export const deleteOfferThunkAction = createAsyncThunk<number, number>(
+    'offers/delete',
+    async (id: number) => {
+      try {
+        await axios.delete(`/api/games/offers/${id}`);
+        return id
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+  );

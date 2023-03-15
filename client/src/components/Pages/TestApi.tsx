@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
-import { Grid, TextField } from '@mui/material';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, TextField } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import getGamesThunkAction from '../../features/actions/gameThunkActions';
 import OneGame from '../UI/OneGame';
-import { getOfferBySellerThunkAction } from '../../features/actions/dbThunkActions';
+
 
 export default function TestApi(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -21,23 +20,26 @@ export default function TestApi(): JSX.Element {
   const search = useAppSelector((state) => state.apiData.games);
 
   return (
-      <Grid container spacing={5}>
-        <Grid item xs={12}>
+    <>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item sx={{marginTop: 2, display: 'flex'}} >
           <form onSubmit={submitHandler}>
             <TextField
-              label="Game"
-              placeholder="Enter email"
+              label="Введите имя игры"
               inputRef={gameInputRef}
+              sx={{maxWidth: '1000px', minWidth: '700px'}}
             />
-            <Button variant="contained" color="primary" type="submit">
-              Submit
+            <Button variant="outlined" color="primary" type="submit" sx={{marginTop:1, marginLeft:1}}>
+              Поиск
             </Button>
           </form>
         </Grid>
-
+      </Grid>
+      <Grid container spacing={2}>
         {search.map((el) => (
           <OneGame key={el.id} game={el} />
         ))}
       </Grid>
+    </>
   );
 }
