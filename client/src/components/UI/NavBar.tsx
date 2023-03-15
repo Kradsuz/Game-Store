@@ -149,7 +149,7 @@ function NavBar(): JSX.Element {
                   page.name === 'Зарегистрироваться'
                 ) {
                   return !isLoggedIn;
-                } else if (page.name === 'Игры') {
+                } if (page.name === 'Игры') {
                   return userData.user?.roleId !== 1
                 }
                 return true;
