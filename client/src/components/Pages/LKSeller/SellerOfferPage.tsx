@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
-import LKSeller from './index';
+import LKSeller from './LKSeller';
 
 import { useAppDispatch, useAppSelector } from '../../../features/reduxHooks';
 import { getOfferBySellerThunkAction } from '../../../features/actions/dbThunkActions';

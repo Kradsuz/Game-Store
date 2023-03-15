@@ -42,7 +42,7 @@ gameAndOfferRouter.post("/sellers", async (req, res) => {
     const gameAndOfferId = req.body.id;
     const gameAndOffers = await Game.findOne({
       where: { apiGameId: gameAndOfferId },
-      include: [{ model: Offer, include:[{model: Platform}] }],
+      include: [{ model: Offer, include: [{ model: Platform }] }],
     });
     res.json(gameAndOffers);
   } catch (err) {
@@ -64,6 +64,17 @@ gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
       include: [{ model: Game }, { model: Platform }],
     });
     res.json(allOffersSeller);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+});
+
+gameAndOfferRouter.delete("/offers/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Offer.destroy({ where: { id } });
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
