@@ -1,11 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { DbGameType, DBOfferType } from '../../../types';
-import {
-  getDBGamesThunkAction,
-  getOfferBySellerThunkAction,
-  getOffersThunkAction,
-} from '../../actions/dbThunkActions';
+import {deleteOfferThunkAction, getDBGamesThunkAction, getOfferBySellerThunkAction, getOffersThunkAction} from '../../actions/dbThunkActions';
 
 type InitialStateType = {
   gameOffers: DbGameType;
@@ -62,7 +58,14 @@ const dbSlice = createSlice({
       })
       .addCase(getOfferBySellerThunkAction.fulfilled, (state, action) => {
         state.sellerOffers = action.payload;
-      });
+      },
+    )
+    .addCase(
+      deleteOfferThunkAction.fulfilled,
+      (state, action: PayloadAction<number>) => {
+        state.sellerOffers = state.sellerOffers.filter(el => el.id !== action.payload)
+      },
+    )
   },
 });
 
