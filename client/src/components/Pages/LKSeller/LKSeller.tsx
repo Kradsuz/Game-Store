@@ -15,6 +15,11 @@ type OneOfferProps = {
 
 export default function LKSeller({ offersSeller }: OneOfferProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const deleteHandler = (id:number):void =>{
+    dispatch(
+      deleteOfferThunkAction(id),
+    ).catch(() => {})
+  }
   return (
     <Row>
       <Col>
