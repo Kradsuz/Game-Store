@@ -6,8 +6,8 @@ import { Button } from 'react-bootstrap';
 
 import React from 'react';
 import type { DBOfferType } from '../../../types';
-import { deleteByid } from '../../../features/slices/dbSlice';
 import { useAppDispatch } from '../../../features/reduxHooks';
+import { deleteOfferThunkAction } from '../../../features/actions/dbThunkActions';
 
 type OneOfferProps = {
   offersSeller: DBOfferType;
@@ -33,9 +33,13 @@ export default function index({ offersSeller }: OneOfferProps): JSX.Element {
               <h4>{offersSeller.Platform?.name}</h4>
               <h3>{offersSeller.price}</h3>
               <h3>{offersSeller.time}</h3>
-              <Button onClick={() => dispatch(deleteByid(offersSeller.id))}>
-            Продано
-          </Button>
+              <Button
+                onClick={dispatch(
+                  deleteOfferThunkAction(offersSeller.id),
+                ).catch(() => {})}
+              >
+                Продано
+              </Button>
             </Col>
           </Row>
         </ListGroup.Item>
