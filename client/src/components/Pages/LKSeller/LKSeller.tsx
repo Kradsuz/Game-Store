@@ -13,8 +13,13 @@ type OneOfferProps = {
   offersSeller: DBOfferType;
 };
 
-export default function index({ offersSeller }: OneOfferProps): JSX.Element {
+export default function LKSeller({ offersSeller }: OneOfferProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const deleteHandler = (id:number):void =>{
+    dispatch(
+      deleteOfferThunkAction(id),
+    ).catch(() => {})
+  }
   return (
     <Row>
       <Col>
@@ -34,9 +39,7 @@ export default function index({ offersSeller }: OneOfferProps): JSX.Element {
               <h3>{offersSeller.price}</h3>
               <h3>{offersSeller.time}</h3>
               <Button
-                onClick={dispatch(
-                  deleteOfferThunkAction(offersSeller.id),
-                ).catch(() => {})}
+                onClick={()=>deleteHandler(offersSeller.id)}
               >
                 Продано
               </Button>
