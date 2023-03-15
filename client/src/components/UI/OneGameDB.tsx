@@ -16,7 +16,7 @@ function OneGame({ game }: OneGameProps): JSX.Element {
   return (
     <Grid item xs={4} sx={{ height: '100%' }}>
       <Card
-        sx={{ marginTop: 3, marginLeft: 6, width: '380px', height: '400px' }}
+        sx={{ marginTop: 3, marginLeft: 6, width: '380px', height: '350px' }}
       >
         {/* <Link to={`/games/${game.id}`}> */}
         <CardMedia
@@ -31,7 +31,7 @@ function OneGame({ game }: OneGameProps): JSX.Element {
             {game.name}
           </Typography>
           <Typography>{game.genres}</Typography>
-          <Typography>{game.rating}</Typography>
+          <Typography>{game.cover}</Typography>
         </CardContent>
       </Card>
     </Grid>
