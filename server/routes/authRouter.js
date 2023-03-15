@@ -39,7 +39,7 @@ authRouter.post('/signin', async (req, res) => {
     if (!user) return res.sendStatus(401);
     if (user && (await bcrypt.compare(pass, user.pass))) {
       if (user.img) {
-        req.session.user = { id: user.id, username: user.username, email, img: user?.img };
+        req.session.user = { id: user.id, username: user.username, email, img: user?.img, roleId: user?.roleId };
       }
       return res.json({ ...req.session.user });
     }

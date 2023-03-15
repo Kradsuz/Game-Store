@@ -19,18 +19,22 @@ import { Container } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { modalAction } from '../../features/slices/gamesSlice';
 import type { GameType, PlatformsType } from '../../types';
-import { getDBGamesThunkAction, getOffersThunkAction } from '../../features/actions/dbThunkActions';
+import { getOffersThunkAction } from '../../features/actions/dbThunkActions';
 import SellerOffers from '../Pages/SellerOffers';
 
 export default function OneGameDetailed(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  
   const game = useAppSelector((state) =>
     state.apiData.games.find((el) => el.id === Number(id)),
   );
+  
   const user = useAppSelector((state) => state.userData.user);
 
   const modal = useAppSelector((state) => state.apiData.modal);
+
+  const sellerData = useAppSelector((state) => state.dbData.gameOffers);
 
   const handleClickOpen = (data: GameType | false): void => {
     dispatch(modalAction(data));
@@ -39,6 +43,10 @@ export default function OneGameDetailed(): JSX.Element {
   const handleClose = (): void => {
     dispatch(modalAction(false));
   };
+  
+    const handleOffers = (data: number): void => {
+      dispatch(getOffersThunkAction(data)).catch(() => {});
+    };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -54,16 +62,17 @@ export default function OneGameDetailed(): JSX.Element {
         console.log(err);
       });
     handleClose();
+    handleOffers(Number(id));
   };
 
-  const handleOffers = (data: number): void => {
-    dispatch(getOffersThunkAction(data)).catch(() => {});
-  };
+
+
+  useEffect(() => {
+    handleOffers(Number(id))
+  }, [])
 
   return (
     <Container>
-
-      
       <Dialog open={!!modal} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
@@ -83,6 +92,7 @@ export default function OneGameDetailed(): JSX.Element {
                     value={platform?.abbreviation}
                     control={<Radio />}
                     label={platform?.abbreviation}
+                    key={platform.id}
                   />
                 ))}
               </RadioGroup>
@@ -110,12 +120,12 @@ export default function OneGameDetailed(): JSX.Element {
           </Button>
         </DialogActions>
       </Dialog>
-      <SellerOffers id={Number(id)} />
       {game && (
         <Button variant="outlined" onClick={() => handleClickOpen(game)}>
           Add new Offer
         </Button>
       )}
+      <SellerOffers sellerData={sellerData}/>
     </Container>
   );
 }

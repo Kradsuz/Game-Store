@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { DbGameType } from '../../types';
+import type { DbGameType, DBOfferType } from '../../types';
 
 export const getOffersThunkAction = createAsyncThunk<DbGameType, number>(
   'sellers/fetch',
@@ -9,8 +9,7 @@ export const getOffersThunkAction = createAsyncThunk<DbGameType, number>(
       const response = await axios.post<DbGameType>('/api/games/sellers', {
         id,
       });
-      console.log(response.data);
-
+      response.data.Offers?.reverse()
       return response.data;
     } catch (error) {
       console.error(error);
@@ -32,11 +31,11 @@ export const getDBGamesThunkAction = createAsyncThunk<DbGameType[]>(
     },
   );
 
-  export const getOfferBySellerThunkAction = createAsyncThunk<DbGameType[]>(
+  export const getOfferBySellerThunkAction = createAsyncThunk<DBOfferType[]>(
     'offers/fetch',
     async () => {
       try {
-        const response = await axios.post<DbGameType[]>('/api/games/allOffersSeller');
+        const response = await axios.post<DBOfferType[]>('/api/games/allOffersSeller');
         return response.data;
       } catch (error) {
         console.error(error);

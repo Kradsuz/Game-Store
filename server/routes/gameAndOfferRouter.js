@@ -22,10 +22,6 @@ gameAndOfferRouter.post("/add", async (req, res) => {
       apiGameId: game.id,
     },
   });
-  //   console.log("OFFER", offer);
-  //   console.log("GAME", game);
-  //   console.log(new Date(game.first_release_date).getUTCFullYear());
-  //   console.log("GAMEIIIDDDDD", gameId.dataValues.id);
   const createPlatform = await Platform.findOrCreate({
     where: { name: offer.platform },
     defaults: { name: offer.platform },
@@ -46,9 +42,8 @@ gameAndOfferRouter.post("/sellers", async (req, res) => {
     const gameAndOfferId = req.body.id;
     const gameAndOffers = await Game.findOne({
       where: { apiGameId: gameAndOfferId },
-      include: [{ model: Offer }],
+      include: [{ model: Offer, include:[{model: Platform}] }],
     });
-    console.log("IDOOOFFF", gameAndOffers);
     res.json(gameAndOffers);
   } catch (err) {
     console.log(err);
@@ -66,7 +61,7 @@ gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
     const userId = req.session.user.id;
     const allOffersSeller = await Offer.findAll({
       where: { sellerId: userId },
-      include: [{ model: Game }],
+      include: [{ model: Game }, { model: Platform }],
     });
     res.json(allOffersSeller);
   } catch (err) {

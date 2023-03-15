@@ -13,11 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
-import type { UserFromBackend } from '../../types';
 
 const pages = [
   { name: 'Игры', link: '/games' },
@@ -62,8 +61,6 @@ function NavBar(): JSX.Element {
   const handleCloseUserMenu = (): void => {
     setAnchorElUser(null);
   };
-
-  const user = useAppSelector((state) => state.userData);
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -143,7 +140,6 @@ function NavBar(): JSX.Element {
             GameStore
           </Typography>
 
-
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages
               .filter((page) => {
@@ -152,6 +148,8 @@ function NavBar(): JSX.Element {
                   page.name === 'Зарегистрироваться'
                 ) {
                   return !isLoggedIn;
+                } else if (page.name === 'Игры') {
+                  return userData.user?.roleId !== 1
                 }
                 return true;
               })
@@ -185,8 +183,8 @@ function NavBar(): JSX.Element {
                   </Typography>
                   <Avatar
                     alt="o"
-                    src={`http://localhost:3001${userData.user?.img}` as string}
-                    sx={{ marginLeft: '16px' }}
+                    src={`http://localhost:3001${userData.user?.img as string}`}
+                    sx={{ marginLeft: '16px', width: 66, height: 66 }}
                   />
                 </IconButton>
               </Tooltip>
