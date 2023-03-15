@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Card, Typography } from '@mui/material';
 
-import type { GameType } from '../../../types';
+import type { DBOfferType, GameType } from '../../../types';
 
 type OneOfferProps = {
   offer: DBOfferType;

@@ -26,14 +26,12 @@ const pages = [
   { name: 'Зарегистрироваться', link: '/auth/signup' },
 ];
 const settings = [
-  { name: 'Profile', link: '/profile' },
+
   { name: 'Личный кабинет', link: '/account' },
-  { name: 'Dashboard', link: '/dashboard' },
   { name: 'Logout', link: '/' },
 ];
 
 function NavBar(): JSX.Element {
-  const location = useLocation();
   const userData = useAppSelector((state) => state.userData);
   const online = useAppSelector((state) => state.socketData.online);
   const isLoggedIn = !!userData.user;
@@ -177,7 +175,7 @@ function NavBar(): JSX.Element {
               }}
             >
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton onClick={handleOpenUserMenu}>
                   <Typography
                     variant="h6"
                     noWrap
@@ -187,7 +185,7 @@ function NavBar(): JSX.Element {
                   </Typography>
                   <Avatar
                     alt="o"
-                    src={`http://localhost:3001${userData.user?.img}`}
+                    src={`http://localhost:3001${userData.user?.img}` as string}
                     sx={{ marginLeft: '16px' }}
                   />
                 </IconButton>
