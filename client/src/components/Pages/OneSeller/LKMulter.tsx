@@ -80,6 +80,7 @@ export default function LKMulter(): JSX.Element {
           </form>
         </div>
       </div>
+      <Chat />
       <div
         style={{
           display: 'flex',
@@ -101,7 +102,6 @@ export default function LKMulter(): JSX.Element {
           Мои предложения
         </h1>
       </div>
-      <Chat />
       <SellerOfferPage />
     </>
   );
