@@ -5,8 +5,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import type { IconButtonProps } from '@mui/material/IconButton';
-import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from 'react-router-dom';
 import {
@@ -19,7 +17,6 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
-  styled,
   Typography,
 } from '@mui/material';
 import axios from 'axios';
@@ -46,27 +43,6 @@ export default function OneGameDetailed(): JSX.Element {
 
   const handleClickOpen = (data: GameType | false): void => {
     dispatch(modalAction(data));
-  };
-
-  type ExpandMoreProps = {
-    expand: boolean;
-  } & IconButtonProps;
-
-  const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props;
-    return <IconButton {...other} />;
-  })(({ theme, expand }) => ({
-    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  }));
-
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
   };
 
   const handleClose = (): void => {
@@ -102,6 +78,9 @@ export default function OneGameDetailed(): JSX.Element {
     <Container>
       <Card
         sx={{
+          border: '1px solid #000',
+          borderRadius: '10px',
+          backgroundImage: 'linear-gradient(to right, #007bff, #ffffff)',
           display: 'flex',
           maxWidth: 1200,
           maxHeight: 700,
@@ -120,12 +99,37 @@ export default function OneGameDetailed(): JSX.Element {
         />
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
-            <Typography gutterBottom variant="h5" component="div">
-              {game?.name}
+            <Box
+              sx={{
+                border: ' 1px solid #000',
+                backgroundImage: 'linear-gradient(to right, #007bff, #ffffff)',
+                borderRadius: '10px',
+                p: 4,
+                display: 'inline-block',
+              }}
+            >
+              <Typography gutterBottom variant="h3" component="div">
+                {game?.name}
+              </Typography>
+              <Typography variant="inherit" color='blue' >
+              {game?.genres.map((genre) => genre.name).join(', ')}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            </Box>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="div"
+              sx={{ marginBottom: 10, marginTop: 10 }}
+              color="text.secondary"
+            >
+              {game?.platforms
+                ?.map((platform) => platform.abbreviation)
+                .join(', ')}
+            </Typography>
+            <Typography variant="inherit" color="HighlightText">
               {game?.summary}
             </Typography>
+
           </CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
             {/* <Typography variant="h6" color="text.secondary">
@@ -145,12 +149,12 @@ export default function OneGameDetailed(): JSX.Element {
       </Card>
 
       <Dialog open={!!modal} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Выберете платформу</DialogTitle>
         <DialogContent>
           <form id="my-form" onSubmit={handleSubmit}>
             <FormControl>
               <FormLabel id="demo-radio-buttons-group-label">
-                Platform
+                _______________________________________________
               </FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
@@ -170,13 +174,13 @@ export default function OneGameDetailed(): JSX.Element {
                 autoFocus
                 margin="dense"
                 name="price"
-                label="Enter your price in $"
+                label="Введите цену в $"
                 type="number"
                 fullWidth
               />
               <TextField
                 name="conditions"
-                label="Conditions"
+                label="Условия"
                 multiline
                 maxRows={3}
               />
@@ -184,9 +188,9 @@ export default function OneGameDetailed(): JSX.Element {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Закрыть</Button>
           <Button type="submit" form="my-form">
-            Add
+            Добавить
           </Button>
         </DialogActions>
       </Dialog>
