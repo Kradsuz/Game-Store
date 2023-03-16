@@ -7,7 +7,7 @@ export type DbGameType = {
   rating: number;
   apiGameId: number;
   summaru: string;
-  Offers?: DBOfferType[];
+  Offers: DBOfferType[];
 };
 export type DBOfferType = {
   id: number;
@@ -16,7 +16,7 @@ export type DBOfferType = {
   payId: number;
   sellerId: number;
   platformId: number;
-  Platform?: DbPlatformType;
+  Platform: DbPlatformType;
   gameId: number;
   Game?: DbGameType;
   User: User;
@@ -33,3 +33,11 @@ export type User = {
   roleId: unknown;
   confirmPass: string;
 };
+
+export type ImagesType = {
+  [key: string]: string;
+  PS5: string;
+  PS4: string;
+  PC: string;
+  XONE: string;
+}

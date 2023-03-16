@@ -29,7 +29,7 @@ export default function MainPage(): JSX.Element {
         />
       </Container>
       <Grid container spacing={2}>
-        {dbGames.map((el) => (
+        {dbGames.filter(el=> el.Offers?.length > 0).map((el) => (
           <OneGameDB key={el.id} game={el} />
         ))}
       </Grid>
