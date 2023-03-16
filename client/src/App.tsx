@@ -35,13 +35,13 @@ function App(): JSX.Element {
         <Route path="/" element={<StartPage />} />
         <Route path="/db" element={<MainPage />} />
         <Route path="/account" element={<LKMulter />} />
-        <Route path="/games/:id" element={<OneGameDetailed />} />
         <Route
           element={
             <PrivateRouter isAllowed={!(roleId === 1) && (status === 'logged')} redirectTo="/" />
           }
         >
            <Route path="/games" element={<TestApi />} />
+          <Route path="/games/:id" element={<OneGameDetailed />} />
         </Route>
         <Route
           element={
