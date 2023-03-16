@@ -35,7 +35,7 @@ function OneGameDBDetailed(): JSX.Element {
       <Typography>Жанр: {game?.genres}</Typography>
       <Typography>Описание: {game?.summaru}</Typography>
       <Typography>Оценки: {game?.rating}</Typography>
-      <SellerOffers sellerData={game}/>
+      {game && <SellerOffers sellerData={game}/>}
     </CardContent>
   );
 }

@@ -13,6 +13,7 @@ type InitialStateType = {
   dbGames: DbGameType[];
   sellerOffers: DBOfferType[];
   originalDbGames: DbGameType[]; // добавляем свойство для хранения исходного массива элементов
+  modal: string
 };
 
 const initialState: InitialStateType = {
@@ -30,10 +31,11 @@ const initialState: InitialStateType = {
   dbGames: [],
   sellerOffers: [],
   originalDbGames: [], // инициализируем свойство пустым массивом
+  modal: '',
 };
 
 const dbSlice = createSlice({
-  name: 'gamesSlice',
+  name: 'dbSlice',
   initialState,
   reducers: {
     checkFeature(state, action: PayloadAction<string>) {
@@ -45,6 +47,9 @@ const dbSlice = createSlice({
           el.name.toLowerCase().includes(action.payload.trim().toLowerCase()),
         );
       }
+    },
+    chatAction(state, action) {
+      state.modal = action.payload as string;
     },
   },
   extraReducers: (builder) => {
@@ -71,4 +76,4 @@ const dbSlice = createSlice({
 });
 
 export default dbSlice.reducer;
-export const { checkFeature } = dbSlice.actions;
+export const { checkFeature, chatAction } = dbSlice.actions;

@@ -80,7 +80,7 @@ export default function LKMulter(): JSX.Element {
           </form>
         </div>
       </div>
-      <Chat />
+      <Chat seller={undefined}/>
       <div
         style={{
           display: 'flex',

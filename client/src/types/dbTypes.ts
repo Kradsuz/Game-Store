@@ -19,7 +19,7 @@ export type DBOfferType = {
   Platform?: DbPlatformType;
   gameId: number;
   Game?: DbGameType;
-  User?: User;
+  User: User;
 };
 export type DbPlatformType = {
   id: number;
