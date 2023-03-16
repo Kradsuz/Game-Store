@@ -34,7 +34,7 @@ function App(): JSX.Element {
       <NavBar />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        {/* <Route path="/games" element={<TestApi />} /> */}
+        <Route path="/db" element={<MainPage />} />
         <Route path="/account" element={<LKMulter />} />
         <Route path="/games/:id" element={<OneGameDetailed />} />
         <Route
