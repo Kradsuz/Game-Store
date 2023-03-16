@@ -17,6 +17,7 @@ import { wsInitAction } from './features/actions/wsActions';
 import { useAppDispatch, useAppSelector } from './features/reduxHooks';
 
 function App(): JSX.Element {
+  const location = useLocation();
   const status = useAppSelector((state) => state.userData.status);
   const roleId = useAppSelector((state) => state.userData.user?.roleId);
   const dispatch = useAppDispatch();
@@ -31,12 +32,26 @@ function App(): JSX.Element {
     }
   }, [status]);
 
-  
+  const styles = {
+    background: {
+      backgroundImage: 'url("https://phonoteka.org/uploads/posts/2022-02/1645023214_2-phonoteka-org-p-krutoi-igrovoi-fon-2.jpg")',
+      backgroundColor: '#fff',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'repeat-y',
+      backgroundPosition: 'center',
+      height: '100vh',
+    },
+  };
   return (
     <>
       <NavBar />
+      {location.pathname === '/' ? (
+        <StartPage />
+      ) : (
+        <Box sx={styles.background}>
       <Routes>
         <Route path="/" element={<StartPage />} />
+       
         <Route path="/db" element={<MainPage />} />
 
         <Route path="/db/:id" element={<OneGameDBDetailed />} />
@@ -72,7 +87,10 @@ function App(): JSX.Element {
             }
           />{' '}
         </Route>
+       
       </Routes>
+      </Box>
+      )}
     </>
   );
 }

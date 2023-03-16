@@ -48,22 +48,22 @@ export default function OneOffer({offer}:OneOfferProps): JSX.Element {
     
     <Card >
       <Typography gutterBottom variant="h5" component="h2" align="center">
-            Seller: {offer.User?.username}
+            Продавец: {offer.User?.username}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            Price: {offer.price} $
+            Цена: {offer.price} $
           </Typography>
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            Conditions : {offer.time}, Platform: {offer.Platform?.name}
+            Условия : {offer.time}, Платформа: {offer.Platform?.name}
           </Typography>
           {role === 1 && <Button
                 variant="outlined"
                 onClick={() => handleClickOpen(offer.User?.username)}
                 sx={{ marginTop: 1 }}
               >
-                Chat with Seller
+                Связаться с продавцом
               </Button>}
     </Card>
    </>
   );
-}
+          }
