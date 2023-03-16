@@ -182,7 +182,7 @@ export default function OneGameDetailed(): JSX.Element {
                   },
                 }}
               >
-                Add new Offer
+                Добавить новое предложение
               </Button>
             )}
           </Box>
@@ -190,7 +190,7 @@ export default function OneGameDetailed(): JSX.Element {
       </Card>
 
       <Dialog open={!!modal} onClose={handleClose}>
-        <DialogTitle>Выберете платформу</DialogTitle>
+        <DialogTitle>Выберите платформу:</DialogTitle>
         <DialogContent>
           <form id="my-form" onSubmit={handleSubmit}>
             <FormControl>
@@ -215,7 +215,7 @@ export default function OneGameDetailed(): JSX.Element {
                 autoFocus
                 margin="dense"
                 name="price"
-                label="Введите цену в $"
+                label="Введите цену в рублях"
                 type="number"
                 fullWidth
               />
