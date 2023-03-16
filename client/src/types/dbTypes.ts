@@ -19,8 +19,17 @@ export type DBOfferType = {
   Platform?: DbPlatformType;
   gameId: number;
   Game?: DbGameType;
+  User?: User;
 };
 export type DbPlatformType = {
   id: number;
   name: string;
+};
+
+export type User = {
+  email: string;
+  username: string;
+  pass: string;
+  roleId: unknown;
+  confirmPass: string;
 };

@@ -21,6 +21,9 @@ export default function OneOffer({offer}:OneOfferProps): JSX.Element {
 
   return (
     <Card >
+      <Typography gutterBottom variant="h5" component="h2" align="center">
+            Seller: {offer.User?.username as string}
+          </Typography>
           <Typography gutterBottom variant="h5" component="h2" align="center">
             Price: {offer.price} $
           </Typography>

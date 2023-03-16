@@ -3,11 +3,13 @@ import { Card, CardMedia, CardContent, Typography, makeStyles } from '@mui/mater
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../features/reduxHooks';
 import { getDBGamesThunkAction } from '../../features/actions/dbThunkActions';
+import SellerOffers from '../Pages/SellerOffers';
 
 
 function OneGameDBDetailed(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+
   const game = useAppSelector((state) =>
     state.dbData.dbGames.find((el) => el.id === Number(id)),
   );
@@ -32,9 +34,8 @@ function OneGameDBDetailed(): JSX.Element {
       <Typography>Название: {game?.name}</Typography>
       <Typography>Жанр: {game?.genres}</Typography>
       <Typography>Описание: {game?.summaru}</Typography>
-      <Typography><ul>{game?.Offers?.map((el)=> <li>Платформа: {el.Platform?.name}</li>)}</ul></Typography>
-      <Typography><ul>{game?.Offers?.map((el)=> <li>Цена: {el.price} руб.</li>)}</ul></Typography>
-      <Typography><ul>{game?.Offers?.map((el)=> <li>Сроки выполнения заказа: {el.time}</li>)}</ul></Typography>
+      <Typography>Оценки: {game?.rating}</Typography>
+      <SellerOffers sellerData={game}/>
     </CardContent>
   );
 }
