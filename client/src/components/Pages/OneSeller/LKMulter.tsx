@@ -3,6 +3,7 @@ import axios from 'axios';
 import SellerOfferPage from '../LKSeller/SellerOfferPage';
 import { useAppDispatch } from '../../../features/reduxHooks';
 import { checkUserActionThunk } from '../../../features/actions/userActions';
+import Chat from '../Chat';
 
 export default function LKMulter(): JSX.Element {
   const [image, setImage] = useState<File | string>('');
@@ -79,6 +80,7 @@ export default function LKMulter(): JSX.Element {
           </form>
         </div>
       </div>
+      <Chat />
       <div
         style={{
           display: 'flex',
@@ -100,7 +102,6 @@ export default function LKMulter(): JSX.Element {
           Мои предложения
         </h1>
       </div>
-
       <SellerOfferPage />
     </>
   );
