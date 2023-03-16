@@ -8,6 +8,8 @@ import RegisterPage from './components/Pages/RegisterPage';
 import StartPage from './components/Pages/StartPage/StartPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
+import OneGame from './components/UI/OneGame';
+import OneGameDBDetailed from './components/UI/OneGameDBDetailed';
 import OneGameDetailed from './components/UI/OneGameDetailed';
 import { checkUserActionThunk } from './features/actions/userActions';
 import { wsInitAction } from './features/actions/wsActions';
@@ -34,6 +36,9 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/db" element={<MainPage />} />
+
+        <Route path="/db/:id" element={<OneGameDBDetailed />} />
+
         <Route path="/account" element={<LKMulter />} />
         <Route
           element={

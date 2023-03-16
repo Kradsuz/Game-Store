@@ -157,6 +157,7 @@ const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
                   page.name === 'Зарегистрироваться'
                 ) {
                   return !isLoggedIn;
+
                 } if (page.name === 'Добавить предложение') {
                   return (userData.user?.roleId !== 1) && isLoggedIn
                 }

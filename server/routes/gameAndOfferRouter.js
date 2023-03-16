@@ -52,7 +52,9 @@ gameAndOfferRouter.post("/sellers", async (req, res) => {
 });
 
 gameAndOfferRouter.post("/", async (req, res) => {
-  const allGame = await Game.findAll();
+  const allGame = await Game.findAll({
+    include: [{ model: Offer, include: [{ model: Platform }] }],
+  });
   res.json(allGame);
 });
 
@@ -69,7 +71,7 @@ gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
     res.sendStatus(500);
   }
 });
-
+//
 gameAndOfferRouter.delete("/offers/:id", async (req, res) => {
   try {
     const { id } = req.params;
