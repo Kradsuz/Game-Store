@@ -4,7 +4,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from 'react-router-dom';
 import {
@@ -88,15 +87,24 @@ export default function OneGameDetailed(): JSX.Element {
           marginBottom: 1,
         }}
       >
-        <CardMedia
-          component="img"
-          height="720"
-          width="1280"
-          image={`https://images.igdb.com/igdb/image/upload/t_720p/${
-            game?.cover.image_id as string
-          }.jpg`}
-          alt="Game Image"
-        />
+        <Box
+          sx={{
+            border: '1px solid #000',
+            borderRadius: '10px',
+            padding: '10px',
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="720"
+            width="1280"
+            image={`https://images.igdb.com/igdb/image/upload/t_720p/${
+              game?.cover.image_id as string
+            }.jpg`}
+            alt="Game Image"
+          />
+        </Box>
+
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
             <Box
@@ -111,9 +119,9 @@ export default function OneGameDetailed(): JSX.Element {
               <Typography gutterBottom variant="h3" component="div">
                 {game?.name}
               </Typography>
-              <Typography variant="inherit" color='blue' >
-              {game?.genres.map((genre) => genre.name).join(', ')}
-            </Typography>
+              <Typography variant="inherit" color="blue">
+                {game?.genres.map((genre) => genre.name).join(', ')}
+              </Typography>
             </Box>
             <Typography
               gutterBottom
@@ -129,12 +137,8 @@ export default function OneGameDetailed(): JSX.Element {
             <Typography variant="inherit" color="HighlightText">
               {game?.summary}
             </Typography>
-
           </CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
-            {/* <Typography variant="h6" color="text.secondary">
-            {game?.platforms}
-          </Typography> */}
             {game && (
               <Button
                 variant="outlined"
@@ -147,7 +151,6 @@ export default function OneGameDetailed(): JSX.Element {
           </Box>
         </Box>
       </Card>
-
       <Dialog open={!!modal} onClose={handleClose}>
         <DialogTitle>Выберете платформу</DialogTitle>
         <DialogContent>
