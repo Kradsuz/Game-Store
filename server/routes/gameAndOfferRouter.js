@@ -69,7 +69,7 @@ gameAndOfferRouter.post("/allOffersSeller", async (req, res) => {
     res.sendStatus(500);
   }
 });
-
+//
 gameAndOfferRouter.delete("/offers/:id", async (req, res) => {
   try {
     const { id } = req.params;
