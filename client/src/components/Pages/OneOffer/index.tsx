@@ -26,6 +26,7 @@ export default function OneOffer({offer}:OneOfferProps): JSX.Element {
     dispatch(chatAction(false));
   };
   const modal = useAppSelector((state) => state.dbData.modal);
+  const role =useAppSelector(state => state.userData.user?.roleId)
 
   const handleClickOpen = (data: string | false): void => {
     dispatch(chatAction(data));
@@ -55,7 +56,7 @@ export default function OneOffer({offer}:OneOfferProps): JSX.Element {
           <Typography gutterBottom variant="h5" component="h2" align="center">
             Условия : {offer.time}, Платформа: {offer.Platform?.name}
           </Typography>
-          <Button
+          {role === 1 && <Button
                 variant="outlined"
                 onClick={() => handleClickOpen(offer.User?.username)}
                 sx={{ marginTop: 1 }}
