@@ -14,7 +14,7 @@ function Chat({seller}: ChatPropsType): JSX.Element {
 	const [username, setUsername] = useState(seller)
 
 	function createDirectChat(creds: any): void {
-		getOrCreateChat(
+		if (username) getOrCreateChat(
 			creds,
 			{ is_direct_chat: true, usernames: [username] },
 			() => setUsername('')
