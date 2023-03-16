@@ -5,14 +5,22 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import type { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from 'react-router-dom';
 import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
   FormControl,
   FormControlLabel,
   FormLabel,
   Radio,
   RadioGroup,
+  styled,
+  Typography,
 } from '@mui/material';
 import axios from 'axios';
 import { Container } from 'react-bootstrap';
@@ -25,11 +33,11 @@ import SellerOffers from '../Pages/SellerOffers';
 export default function OneGameDetailed(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  
+
   const game = useAppSelector((state) =>
     state.apiData.games.find((el) => el.id === Number(id)),
   );
-  
+
   const user = useAppSelector((state) => state.userData.user);
 
   const modal = useAppSelector((state) => state.apiData.modal);
@@ -40,13 +48,34 @@ export default function OneGameDetailed(): JSX.Element {
     dispatch(modalAction(data));
   };
 
+  type ExpandMoreProps = {
+    expand: boolean;
+  } & IconButtonProps;
+
+  const ExpandMore = styled((props: ExpandMoreProps) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   const handleClose = (): void => {
     dispatch(modalAction(false));
   };
-  
-    const handleOffers = (data: number): void => {
-      dispatch(getOffersThunkAction(data)).catch(() => {});
-    };
+
+  const handleOffers = (data: number): void => {
+    dispatch(getOffersThunkAction(data)).catch(() => {});
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -65,18 +94,59 @@ export default function OneGameDetailed(): JSX.Element {
     handleOffers(Number(id));
   };
 
-
-
   useEffect(() => {
-    handleOffers(Number(id))
-  }, [])
+    handleOffers(Number(id));
+  }, []);
 
   return (
     <Container>
+      <Card
+        sx={{
+          display: 'flex',
+          maxWidth: 1200,
+          maxHeight: 700,
+          marginTop: 1,
+          marginBottom: 1,
+        }}
+      >
+        <CardMedia
+          component="img"
+          height="720"
+          width="1280"
+          image={`https://images.igdb.com/igdb/image/upload/t_720p/${
+            game?.cover.image_id as string
+          }.jpg`}
+          alt="Game Image"
+        />
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <CardContent sx={{ flex: '1 0 auto' }}>
+            <Typography gutterBottom variant="h5" component="div">
+              {game?.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {game?.summary}
+            </Typography>
+          </CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+            {/* <Typography variant="h6" color="text.secondary">
+            {game?.platforms}
+          </Typography> */}
+            {game && (
+              <Button
+                variant="outlined"
+                onClick={() => handleClickOpen(game)}
+                sx={{ marginTop: 1 }}
+              >
+                Add new Offer
+              </Button>
+            )}
+          </Box>
+        </Box>
+      </Card>
+
       <Dialog open={!!modal} onClose={handleClose}>
         <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
-          <DialogContentText>{game?.summary}</DialogContentText>
           <form id="my-form" onSubmit={handleSubmit}>
             <FormControl>
               <FormLabel id="demo-radio-buttons-group-label">
@@ -120,12 +190,7 @@ export default function OneGameDetailed(): JSX.Element {
           </Button>
         </DialogActions>
       </Dialog>
-      {game && (
-        <Button variant="outlined" onClick={() => handleClickOpen(game)}>
-          Add new Offer
-        </Button>
-      )}
-      <SellerOffers sellerData={sellerData}/>
+      <SellerOffers sellerData={sellerData} />
     </Container>
   );
 }
