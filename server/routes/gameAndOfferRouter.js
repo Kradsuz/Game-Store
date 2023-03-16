@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { GamePlatform, Game, Offer, Platform } = require("../db/models");
+const { User, Game, Offer, Platform } = require("../db/models");
 
 const gameAndOfferRouter = express.Router();
 
@@ -53,7 +53,9 @@ gameAndOfferRouter.post("/sellers", async (req, res) => {
 
 gameAndOfferRouter.post("/", async (req, res) => {
   const allGame = await Game.findAll({
-    include: [{ model: Offer, include: [{ model: Platform }] }],
+    include: [
+      { model: Offer, include: [{ model: Platform }, { model: User }] },
+    ],
   });
   res.json(allGame);
 });

@@ -6,15 +6,23 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 import type { DbGameType } from '../../types';
+import { getDBGamesThunkAction } from '../../features/actions/dbThunkActions';
+import { useAppDispatch } from '../../features/reduxHooks';
 
 type OneGameProps = {
   game: DbGameType;
 };
 
 function OneGame({ game }: OneGameProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const handleDb = (): void => {
+    dispatch(getDBGamesThunkAction()).catch(() => {});
+  };
+
   return (
     <Grid item xs={12} sm md sx={{ height: '100%' }}>
-      <Link to={`/db/${game.id}`}>
+      <Link onClick={handleDb}
+to={`/db/${game.id}`}>
       <Card
         sx={{
           display: 'flex',
