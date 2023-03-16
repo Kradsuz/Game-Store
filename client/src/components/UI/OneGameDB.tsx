@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
-import type { DbGameType } from '../../types';
+import type { DbGameType, ImagesType } from '../../types';
 import { getDBGamesThunkAction } from '../../features/actions/dbThunkActions';
 import { useAppDispatch } from '../../features/reduxHooks';
 
@@ -18,21 +18,31 @@ function OneGame({ game }: OneGameProps): JSX.Element {
   const handleDb = (): void => {
     dispatch(getDBGamesThunkAction()).catch(() => {});
   };
+  const images: ImagesType = {
+    PS5: 'https://logospng.org/download/ps5-playstation-5/logo-ps5-com-icone-256.png',
+    PS4: 'https://logospng.org/download/ps4-playstation-4/logo-ps4-com-icone-256.png',
+    PC: 'https://logospng.org/download/steam/steam-256.png',
+    XONE: 'https://logospng.org/download/xbox/logo-xbox-256.png'
+}
+const platforms = Array.from(new Set(game.Offers?.map((el) => el.Platform?.name))).map((platform) => {
+  if (platform in images) {
+    return <img style={{ height: "80px" }} src={images[platform]} alt={platform} />;
+  }
+  return platform;
+});
 
   return (
     <Grid item xs={12} sm md sx={{ height: '100%' }}>
-      <Link onClick={handleDb}
-to={`/db/${game.id}`}>
-      <Card
-        sx={{
-          display: 'flex',
-          marginTop: 3,
-          marginLeft: 6,
-          width: '420px',
-          height: '250px',
-        }}
-      >
-        
+      <Link onClick={handleDb} to={`/db/${game.id}`}>
+        <Card elevation={15}
+          sx={{
+            display: 'flex',
+            marginTop: 3,
+            marginLeft: 6,
+            width: '420px',
+            height: '250px',
+          }}
+        >
           <CardMedia
             component="img"
             alt="gameImg"
@@ -52,7 +62,7 @@ to={`/db/${game.id}`}>
           <Typography gutterBottom variant="h6" component="div">
             {game.name}
           </Typography>
-          <Typography>{game.date}</Typography>
+          <Typography>{platforms}</Typography>
         </CardContent>
       </Card>
       </Link>
