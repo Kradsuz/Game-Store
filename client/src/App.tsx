@@ -36,7 +36,9 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/db" element={<MainPage />} />
+
         <Route path="/db/:id" element={<OneGameDBDetailed />} />
+
         <Route path="/account" element={<LKMulter />} />
         <Route path="/games/:id" element={<OneGameDetailed />} />
         <Route
