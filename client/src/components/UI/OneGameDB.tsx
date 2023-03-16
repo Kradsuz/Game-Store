@@ -33,18 +33,16 @@ const platforms = Array.from(new Set(game.Offers?.map((el) => el.Platform?.name)
 
   return (
     <Grid item xs={12} sm md sx={{ height: '100%' }}>
-      <Link onClick={handleDb}
-to={`/db/${game.id}`}>
-      <Card
-        sx={{
-          display: 'flex',
-          marginTop: 3,
-          marginLeft: 6,
-          width: '420px',
-          height: '250px',
-        }}
-      >
-        
+      <Link onClick={handleDb} to={`/db/${game.id}`}>
+        <Card elevation={15}
+          sx={{
+            display: 'flex',
+            marginTop: 3,
+            marginLeft: 6,
+            width: '420px',
+            height: '250px',
+          }}
+        >
           <CardMedia
             component="img"
             alt="gameImg"

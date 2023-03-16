@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Box } from '@mui/material';
 import { Route, Routes } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import LoginPage from './components/Pages/LoginPage';
@@ -30,6 +31,7 @@ function App(): JSX.Element {
     }
   }, [status]);
 
+  
   return (
     <>
       <NavBar />
@@ -42,15 +44,21 @@ function App(): JSX.Element {
         <Route path="/account" element={<LKMulter />} />
         <Route
           element={
-            <PrivateRouter isAllowed={!(roleId === 1) && (status === 'logged')} redirectTo="/" />
+            <PrivateRouter
+              isAllowed={!(roleId === 1) && status === 'logged'}
+              redirectTo="/"
+            />
           }
         >
-           <Route path="/games" element={<TestApi />} />
+          <Route path="/games" element={<TestApi />} />
           <Route path="/games/:id" element={<OneGameDetailed />} />
         </Route>
         <Route
           element={
-            <PrivateRouter isAllowed={!(status === 'logged')} redirectTo="/db" />
+            <PrivateRouter
+              isAllowed={!(status === 'logged')}
+              redirectTo="/db"
+            />
           }
         >
           <Route
