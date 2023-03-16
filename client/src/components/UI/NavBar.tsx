@@ -71,7 +71,7 @@ const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
   };
   return (
     <Box  sx={{flexGrow: 1}}>
-    <AppBar position="static">
+    <AppBar position="static" color="primary" sx={{ bgcolor: '#333' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />

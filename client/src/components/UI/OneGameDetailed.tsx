@@ -149,7 +149,7 @@ export default function OneGameDetailed(): JSX.Element {
       </Card>
 
       <Dialog open={!!modal} onClose={handleClose}>
-        <DialogTitle>Выберете платформу</DialogTitle>
+        <DialogTitle>Выберите платформу:</DialogTitle>
         <DialogContent>
           <form id="my-form" onSubmit={handleSubmit}>
             <FormControl>

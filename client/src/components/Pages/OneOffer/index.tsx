@@ -62,8 +62,8 @@ export default function OneOffer({offer}:OneOfferProps): JSX.Element {
                 sx={{ marginTop: 1 }}
               >
                 Связаться с продавцом
-              </Button>
+              </Button>}
     </Card>
    </>
   );
-}
+          }
