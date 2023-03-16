@@ -1,11 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import React, { useState } from 'react'
 
 import { ChatEngine, getOrCreateChat } from 'react-chat-engine'
+import { useAppSelector } from '../../features/reduxHooks'
 
-function Chat(): JSX.Element {
-	const [username, setUsername] = useState('')
+type ChatPropsType ={
+  seller: string | undefined
+}
 
-	function createDirectChat(creds): void {
+
+function Chat({seller}: ChatPropsType): JSX.Element {
+  const user = useAppSelector(state => state.userData.user?.username)
+	const [username, setUsername] = useState(seller)
+
+	function createDirectChat(creds: any): void {
 		getOrCreateChat(
 			creds,
 			{ is_direct_chat: true, usernames: [username] },
@@ -13,28 +21,13 @@ function Chat(): JSX.Element {
 		)
 	}
 
-	function renderChatForm(creds) : JSX.Element {
-		return (
-			<div>
-				<input 
-					placeholder='Username' 
-					value={username} 
-					onChange={(e) => setUsername(e.target.value)} 
-				/>
-				<button onClick={() => createDirectChat(creds)}>
-					Create
-				</button>
-			</div>
-		)
-	}
-
 	return (
 		<ChatEngine
 			height='40vh'
-			userName='Takumi'
+			userName={user}
 			userSecret='123'
 			projectID='ee1a042c-0dd1-48d7-aff6-b00ca94573cc'
-			renderNewChatForm={(creds) => renderChatForm(creds)}
+			renderNewChatForm={(creds: any) => createDirectChat(creds)}
 		/>
 	)
 }
