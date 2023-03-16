@@ -52,7 +52,9 @@ gameAndOfferRouter.post("/sellers", async (req, res) => {
 });
 
 gameAndOfferRouter.post("/", async (req, res) => {
-  const allGame = await Game.findAll();
+  const allGame = await Game.findAll({
+    include: [{ model: Offer, include: [{ model: Platform }] }],
+  });
   res.json(allGame);
 });
 
