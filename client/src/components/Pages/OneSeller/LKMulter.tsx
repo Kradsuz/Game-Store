@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SellerOfferPage from '../LKSeller/SellerOfferPage';
-import { useAppDispatch } from '../../../features/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../features/reduxHooks';
 import { checkUserActionThunk } from '../../../features/actions/userActions';
 import Chat from '../Chat';
 
 export default function LKMulter(): JSX.Element {
   const [image, setImage] = useState<File | string>('');
   const dispatch = useAppDispatch();
+  const role = useAppSelector(state => state.userData.user?.roleId)
   const handleSubmit = (event: React.FormEvent<HTMLElement>): void => {
     event.preventDefault();
 
@@ -81,7 +82,7 @@ export default function LKMulter(): JSX.Element {
         </div>
       </div>
       <Chat seller={undefined}/>
-      <div
+      {role !== 1 && <><div
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -90,7 +91,7 @@ export default function LKMulter(): JSX.Element {
           backgroundColor: '#f2f2f2',
         }}
       >
-        <h1
+         <h1
           style={{
             textAlign: 'center',
             color: '#333',
@@ -102,7 +103,7 @@ export default function LKMulter(): JSX.Element {
           Мои предложения
         </h1>
       </div>
-      <SellerOfferPage />
+      <SellerOfferPage /></>}
     </>
   );
 }
