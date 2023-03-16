@@ -141,7 +141,7 @@ export default function OneGameDetailed(): JSX.Element {
                 onClick={() => handleClickOpen(game)}
                 sx={{ marginTop: 1 }}
               >
-                Add new Offer
+                Добавить новое предложение
               </Button>
             )}
           </Box>
@@ -174,7 +174,7 @@ export default function OneGameDetailed(): JSX.Element {
                 autoFocus
                 margin="dense"
                 name="price"
-                label="Введите цену в $"
+                label="Введите цену в рублях"
                 type="number"
                 fullWidth
               />
