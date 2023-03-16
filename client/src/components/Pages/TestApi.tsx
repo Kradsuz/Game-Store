@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import getGamesThunkAction from '../../features/actions/gameThunkActions';
 import OneGame from '../UI/OneGame';
 
-
 export default function TestApi(): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -22,14 +21,28 @@ export default function TestApi(): JSX.Element {
   return (
     <>
       <Grid container justifyContent="center" alignItems="center">
-        <Grid item sx={{marginTop: 2, display: 'flex'}} >
+        <Grid item sx={{ marginTop: 2, display: 'flex' }}>
           <form onSubmit={submitHandler}>
             <TextField
               label="Введите имя игры"
               inputRef={gameInputRef}
-              sx={{maxWidth: '1000px', minWidth: '700px'}}
+              sx={{ maxWidth: '1000px', minWidth: '700px' }}
             />
-            <Button variant="outlined" color="primary" type="submit" sx={{marginTop:1, marginLeft:1}}>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{
+                marginTop: 1,
+                marginLeft: 1,
+                backgroundColor: 'black',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'gray',
+                  color: 'black',
+                },
+              }}
+            >
               Поиск
             </Button>
           </form>

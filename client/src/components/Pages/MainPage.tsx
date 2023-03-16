@@ -20,14 +20,16 @@ export default function MainPage(): JSX.Element {
 
   return (
     <>
-      <Container sx={{display:'flex', justifyContent:'center'}}>
+    <Grid container justifyContent="center" alignItems="center">
+      <Grid sx={{display:'flex', justifyContent:'center'}}>
         <TextField
           id="outlined-basic"
           label="Поиск по названию игры"
           onChange={changeHandler}
           sx={{ marginTop: 2, maxWidth:'1000px',minWidth:'700px' }}
         />
-      </Container>
+      </Grid>
+      </Grid>
       <Grid container spacing={2}>
         {dbGames.filter(el=> el.Offers?.length > 0).map((el) => (
           <OneGameDB key={el.id} game={el} />

@@ -21,8 +21,11 @@ function OneGame({ game }: OneGameProps): JSX.Element {
   const images: ImagesType = {
     PS5: 'https://logospng.org/download/ps5-playstation-5/logo-ps5-com-icone-256.png',
     PS4: 'https://logospng.org/download/ps4-playstation-4/logo-ps4-com-icone-256.png',
-    PC: 'https://logospng.org/download/steam/steam-256.png',
-    XONE: 'https://logospng.org/download/xbox/logo-xbox-256.png'
+    PC: 'https://cdn.iconscout.com/icon/free/png-256/steam-43-282274.png?f=avif&w=256',
+    XONE: 'https://logospng.org/download/xbox/logo-xbox-256.png',
+    'Series X': 'https://logospng.org/download/xbox/logo-xbox-256.png',
+    Mac: 'https://logospng.org/download/macos/macos-256.png',
+    
 }
 const platforms = Array.from(new Set(game.Offers?.map((el) => el.Platform?.name))).map((platform) => {
   if (platform in images) {
@@ -37,6 +40,7 @@ const platforms = Array.from(new Set(game.Offers?.map((el) => el.Platform?.name)
         <Card elevation={15}
           sx={{
             display: 'flex',
+            borderRadius: 5,
             marginTop: 3,
             marginLeft: 6,
             width: '420px',

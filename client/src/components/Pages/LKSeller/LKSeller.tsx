@@ -40,6 +40,11 @@ export default function LKSeller({ offersSeller }: OneOfferProps): JSX.Element {
               <h3>{offersSeller.time}</h3>
               <Button
                 onClick={()=>deleteHandler(offersSeller.id)}
+                style=
+                  {{
+                    backgroundColor: 'black',
+                    color: 'white',
+                  }}
               >
                 Продано
               </Button>
