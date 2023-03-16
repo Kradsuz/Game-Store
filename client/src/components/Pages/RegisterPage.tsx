@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { signUpUserActionThunk } from '../../features/actions/userActions';
 import { useAppDispatch } from '../../features/reduxHooks';
 import type { UserSubmitForm } from '../../types/userTypes';
@@ -162,6 +163,7 @@ function AuthForm({ title, submitButtonText }: AuthFormProps) {
         >
           {submitButtonText}
         </Button>
+        <Typography>Уже зарегистрированы? <Link to='/auth/signin'>Войдите по этой ссылке</Link></Typography>
       </Box>
     </AuthFormContainer>
   );

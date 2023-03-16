@@ -13,14 +13,14 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-import { Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { logoutUserActionThunk } from '../../features/actions/userActions';
 
 const pages = [
-  { name: 'Игры', link: '/games' },
-  { name: 'Предложения магазина', link: '/games' },
+  { name: 'Игры', link: '/db' },
+  { name: 'Добавить предложение', link: '/games' },
   { name: 'Войти', link: '/auth/signin' },
   { name: 'Зарегистрироваться', link: '/auth/signup' },
 ];
@@ -32,7 +32,7 @@ const settings = [
 
 function NavBar(): JSX.Element {
   const userData = useAppSelector((state) => state.userData);
-  const online = useAppSelector((state) => state.socketData.online);
+  // const online = useAppSelector((state) => state.socketData.online);
   const isLoggedIn = !!userData.user;
   const dispatch = useAppDispatch();
 
@@ -46,13 +46,21 @@ function NavBar(): JSX.Element {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
+console.log(anchorElUser)
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
+  
+const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>): void => {
     setAnchorElNav(event.currentTarget);
   };
+  
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>): void => {
-    setAnchorElUser(event.currentTarget);
-  };
+    event.preventDefault()
+    if (anchorElUser === null) {
+      setAnchorElUser(event.currentTarget)
+    } else {
+      setAnchorElUser(null)
+    }
+  }
 
   const handleCloseNavMenu = (): void => {
     setAnchorElNav(null);
@@ -149,8 +157,8 @@ function NavBar(): JSX.Element {
                   page.name === 'Зарегистрироваться'
                 ) {
                   return !isLoggedIn;
-                } if (page.name === 'Игры') {
-                  return userData.user?.roleId !== 1
+                } if (page.name === 'Добавить предложение') {
+                  return (userData.user?.roleId !== 1) && isLoggedIn
                 }
                 return true;
               })
@@ -169,7 +177,7 @@ function NavBar(): JSX.Element {
           {isLoggedIn && (
             <Box
               sx={{
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'flex', md: 'flex' },
                 alignItems: 'center',
               }}
             >
@@ -215,6 +223,9 @@ function NavBar(): JSX.Element {
                         ? logoutHandler
                         : handleCloseUserMenu
                     }
+                    sx={{
+                      display: { xs: 'block', md: 'flex' },
+                    }}
                   >
                     {setting.name}
                   </MenuItem>
