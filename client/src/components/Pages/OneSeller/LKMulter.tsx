@@ -8,7 +8,7 @@ import Chat from '../Chat';
 export default function LKMulter(): JSX.Element {
   const [image, setImage] = useState<File | string>('');
   const dispatch = useAppDispatch();
-  const role = useAppSelector(state => state.userData.user?.roleId)
+  const role = useAppSelector((state) => state.userData.user?.roleId);
   const handleSubmit = (event: React.FormEvent<HTMLElement>): void => {
     event.preventDefault();
 
@@ -68,12 +68,12 @@ export default function LKMulter(): JSX.Element {
             <button
               type="submit"
               style={{
-                backgroundColor: '#1E90FF',
-                color: 'white',
                 padding: '10px',
                 borderRadius: '5px',
                 border: 'none',
                 cursor: 'pointer',
+                backgroundColor: 'black',
+                color: 'white',
               }}
             >
               Добавить
@@ -81,29 +81,33 @@ export default function LKMulter(): JSX.Element {
           </form>
         </div>
       </div>
-      <Chat seller={undefined}/>
-      {role !== 1 && <><div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '10vh',
-          backgroundColor: '#f2f2f2',
-        }}
-      >
-         <h1
-          style={{
-            textAlign: 'center',
-            color: '#333',
-            fontSize: '3rem',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-          }}
-        >
-          Мои предложения
-        </h1>
-      </div>
-      <SellerOfferPage /></>}
+      <Chat seller={undefined} />
+      {role !== 1 && (
+        <>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '10vh',
+              backgroundColor: '#f2f2f2',
+            }}
+          >
+            <h1
+              style={{
+                textAlign: 'center',
+                color: '#333',
+                fontSize: '3rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+              }}
+            >
+              Мои предложения
+            </h1>
+          </div>
+          <SellerOfferPage />
+        </>
+      )}
     </>
   );
 }
