@@ -26,7 +26,13 @@ export default function MainPage(): JSX.Element {
           id="outlined-basic"
           label="Поиск по названию игры"
           onChange={changeHandler}
-          sx={{ marginTop: 2, maxWidth:'1000px',minWidth:'700px' }}
+          sx={{
+            backgroundColor: '#ffffff',
+            marginTop: 2,
+            maxWidth: '1000px',
+            minWidth: '700px',
+            borderRadius: '10px'
+          }}
         />
       </Grid>
       </Grid>

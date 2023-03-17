@@ -26,7 +26,12 @@ export default function TestApi(): JSX.Element {
             <TextField
               label="Введите имя игры"
               inputRef={gameInputRef}
-              sx={{ maxWidth: '1000px', minWidth: '700px' }}
+              sx={{
+                backgroundColor: '#ffffff',
+                maxWidth: '1000px',
+                minWidth: '700px',
+                borderRadius: '10px'
+              }}
             />
             <Button
               variant="contained"
