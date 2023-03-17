@@ -27,7 +27,7 @@ export default function LKMulter(): JSX.Element {
   };
   return (
     <>
-      <div className="row d-flex justify-content-center pt-5 mt-5">
+      <div className="row d-flex justify-content-center pt-5">
         <div
           className="col d-flex justify-content-center"
           style={{ width: '100%' }}

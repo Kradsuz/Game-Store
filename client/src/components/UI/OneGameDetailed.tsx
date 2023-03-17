@@ -105,7 +105,7 @@ export default function OneGameDetailed(): JSX.Element {
           display: 'flex',
           maxWidth: 1200,
           maxHeight: 700,
-          marginTop: 1,
+
           marginBottom: 1,
         }}
       >

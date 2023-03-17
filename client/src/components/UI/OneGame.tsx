@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
-import type { GameType, ImagesType, PlatformsType } from '../../types';
+import type { GameType, ImagesType } from '../../types';
 
 type OneGameProps = {
   game: GameType;
