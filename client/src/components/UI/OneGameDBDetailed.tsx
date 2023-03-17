@@ -39,8 +39,7 @@ function OneGameDBDetailed(): JSX.Element {
           backgroundImage: 'linear-gradient(to right, gray, #ffffff)',
           display: 'flex',
           maxWidth: 1200,
-          maxHeight: 700,
-          marginTop: 1,
+          maxHeight: 700,     
           marginBottom: 1,
         }}
       >

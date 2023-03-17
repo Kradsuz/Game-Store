@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import LoginPage from './components/Pages/LoginPage';
 import MainPage from './components/Pages/MainPage';
@@ -9,7 +9,6 @@ import RegisterPage from './components/Pages/RegisterPage';
 import StartPage from './components/Pages/StartPage/StartPage';
 import TestApi from './components/Pages/TestApi';
 import NavBar from './components/UI/NavBar';
-import OneGame from './components/UI/OneGame';
 import OneGameDBDetailed from './components/UI/OneGameDBDetailed';
 import OneGameDetailed from './components/UI/OneGameDetailed';
 import { checkUserActionThunk } from './features/actions/userActions';
@@ -34,12 +33,10 @@ function App(): JSX.Element {
 
   const styles = {
     background: {
-      backgroundImage: 'url("https://phonoteka.org/uploads/posts/2022-02/1645023214_2-phonoteka-org-p-krutoi-igrovoi-fon-2.jpg")',
+      backgroundImage: 'url(/1645023214_2-phonoteka-org-p-krutoi-igrovoi-fon-2.png)',
       backgroundColor: '#fff',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'repeat-y',
-      backgroundPosition: 'center',
-      height: '100vh',
+      minHeight: '100vh',
+      transition: '0.5'
     },
   };
   return (
