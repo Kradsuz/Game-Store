@@ -6,8 +6,8 @@ import YouTube from 'react-youtube';
 import './StartPage.css'; // импортируем CSS файл
 
 const ColorButton = styled(Button)({
-  color: '#1cd635',
-  border: '6px solid #1cd635',
+  color: '#3d2be0',
+  border: '6px solid #3d2be0',
   borderRadius: '15px',
   padding: '15px 25px',
   fontSize: '30px',
@@ -18,12 +18,12 @@ const ColorButton = styled(Button)({
   textDecoration: 'none',
   backgroundColor: "transparent",
   filter:
-    'drop-shadow(0 0 15px #1cd635) drop-shadow(0 0 50px #1cd635) contrast(2) brightness(2)',
+    'drop-shadow(0 0 15px #3d2be0) drop-shadow(0 0 50px #3d2be0) contrast(2) brightness(2)',
   transition: '1s',
   '&:hover': {
     color: 'black',
-    backgroundColor: '#1cd635',
-    filter: 'drop-shadow(0 0 20px #1cd635) contrast(2) brightness(2)',
+    backgroundColor: '#3d2be0',
+    filter: 'drop-shadow(0 0 20px #3d2be0) contrast(2) brightness(2)',
     textDecoration: 'none',
   },
 });
