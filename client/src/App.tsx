@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useLocation } from 'react-router';
 import PrivateRouter from './components/HOC/PrivateRouter';
 import LoginPage from './components/Pages/LoginPage';
 import MainPage from './components/Pages/MainPage';
