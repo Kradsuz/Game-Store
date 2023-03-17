@@ -47,15 +47,20 @@ export default function OneOffer({offer}:OneOfferProps): JSX.Element {
     
     
     <Card >
-      <Typography gutterBottom variant="h5" component="h2" align="center">
+            <Typography gutterBottom variant="h5" component="h2" align="center">
+            Платформа: {offer.Platform?.name}
+            </Typography>
+    {role === 1 && <Typography gutterBottom variant="h5" component="h2" align="center">
             Продавец: {offer.User?.username}
+          </Typography>}
+          <Typography gutterBottom variant="h5" component="h2" align="center">
+            Цена: {offer.price} Rub
           </Typography>
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            Цена: {offer.price} $
-          </Typography>
-          <Typography gutterBottom variant="h5" component="h2" align="center">
-            Условия : {offer.time}, Платформа: {offer.Platform?.name}
-          </Typography>
+            Условия : {offer.time}
+            </Typography>
+             
+          
           {role === 1 && <Button
                 variant="outlined"
                 onClick={() => handleClickOpen(offer.User?.username)}
