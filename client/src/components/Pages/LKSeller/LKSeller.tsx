@@ -34,12 +34,17 @@ export default function LKSeller({ offersSeller }: OneOfferProps): JSX.Element {
               />
             </Col>
             <Col sm={10}>
-              <h2>{offersSeller.Game?.name}</h2>
-              <h4>{offersSeller.Platform?.name}</h4>
-              <h3>{offersSeller.price}</h3>
-              <h3>{offersSeller.time}</h3>
+              <h2>Название: {offersSeller.Game?.name}</h2>
+              <h4>Платформа: {offersSeller.Platform?.name}</h4>
+              <h3>Цена: {offersSeller.price} руб.</h3>
+              <h3>Условия: {offersSeller.time}</h3>
               <Button
                 onClick={()=>deleteHandler(offersSeller.id)}
+                style=
+                  {{
+                    backgroundColor: 'black',
+                    color: 'white',
+                  }}
               >
                 Продано
               </Button>

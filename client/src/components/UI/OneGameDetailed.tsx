@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useParams } from 'react-router-dom';
 import {
@@ -22,7 +23,7 @@ import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import { useAppDispatch, useAppSelector } from '../../features/reduxHooks';
 import { modalAction } from '../../features/slices/gamesSlice';
-import type { GameType, PlatformsType } from '../../types';
+import type { GameType, ImagesType, PlatformsType } from '../../types';
 import { getOffersThunkAction } from '../../features/actions/dbThunkActions';
 import SellerOffers from '../Pages/SellerOffers';
 
@@ -69,6 +70,27 @@ export default function OneGameDetailed(): JSX.Element {
     handleOffers(Number(id));
   };
 
+  const images: ImagesType = {
+    PS5: 'https://logospng.org/download/ps5-playstation-5/logo-ps5-com-icone-256.png',
+    PS4: 'https://logospng.org/download/ps4-playstation-4/logo-ps4-com-icone-256.png',
+    PC: 'https://cdn.iconscout.com/icon/free/png-256/steam-43-282274.png?f=avif&w=256',
+    XONE: 'https://logospng.org/download/xbox/logo-xbox-256.png',
+    Switch:
+      'https://upload.wikimedia.org/wikipedia/commons/5/5d/Nintendo_Switch_Logo.svg',
+    'Series X': 'https://logospng.org/download/xbox/logo-xbox-256.png',
+    Mac: 'https://logospng.org/download/macos/macos-256.png',
+  };
+  const platforms = Array.from(
+    new Set(game?.platforms?.map((el) => el.abbreviation)),
+  ).map((platform) => {
+    if (platform in images) {
+      return (
+        <img style={{ height: '80px' }} src={images[platform]} alt={platform} />
+      );
+    }
+    return platform;
+  });
+
   useEffect(() => {
     handleOffers(Number(id));
   }, []);
@@ -79,7 +101,7 @@ export default function OneGameDetailed(): JSX.Element {
         sx={{
           border: '1px solid #000',
           borderRadius: '10px',
-          backgroundImage: 'linear-gradient(to right, #007bff, #ffffff)',
+          backgroundImage: 'linear-gradient(to right, gray, #ffffff)',
           display: 'flex',
           maxWidth: 1200,
           maxHeight: 700,
@@ -87,30 +109,21 @@ export default function OneGameDetailed(): JSX.Element {
           marginBottom: 1,
         }}
       >
-        <Box
-          sx={{
-            border: '1px solid #000',
-            borderRadius: '10px',
-            padding: '10px',
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="720"
-            width="1280"
-            image={`https://images.igdb.com/igdb/image/upload/t_720p/${
-              game?.cover.image_id as string
-            }.jpg`}
-            alt="Game Image"
-          />
-        </Box>
-
+        <CardMedia
+          component="img"
+          height="720"
+          width="1280"
+          image={`https://images.igdb.com/igdb/image/upload/t_720p/${
+            game?.cover.image_id as string
+          }.jpg`}
+          alt="Game Image"
+        />
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
           <CardContent sx={{ flex: '1 0 auto' }}>
             <Box
               sx={{
-                border: ' 1px solid #000',
-                backgroundImage: 'linear-gradient(to right, #007bff, #ffffff)',
+                backgroundImage: 'linear-gradient(to right, gray, #ffffff)',
+
                 borderRadius: '10px',
                 p: 4,
                 display: 'inline-block',
@@ -119,7 +132,15 @@ export default function OneGameDetailed(): JSX.Element {
               <Typography gutterBottom variant="h3" component="div">
                 {game?.name}
               </Typography>
-              <Typography variant="inherit" color="blue">
+              <Typography
+                variant="inherit"
+                color="black"
+                sx={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  borderRadius: '5px',
+                  // display: 'inline-block',
+                }}
+              >
                 {game?.genres.map((genre) => genre.name).join(', ')}
               </Typography>
             </Box>
@@ -127,32 +148,49 @@ export default function OneGameDetailed(): JSX.Element {
               gutterBottom
               variant="h6"
               component="div"
-              sx={{ marginBottom: 10, marginTop: 10 }}
+              sx={{
+                color: 'black',
+                marginBottom: 10,
+                marginTop: 10,
+                display: 'inline-block',
+                backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                borderRadius: '5px',
+              }}
               color="text.secondary"
             >
-              {game?.platforms
-                ?.map((platform) => platform.abbreviation)
-                .join(', ')}
+              {platforms}
             </Typography>
             <Typography variant="inherit" color="HighlightText">
               {game?.summary}
             </Typography>
           </CardContent>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', p: 2 }}>
+            {/* <Typography variant="h6" color="text.secondary">
+            {game?.platforms}
+          </Typography> */}
             {game && (
               <Button
-                variant="outlined"
+                variant="contained"
                 onClick={() => handleClickOpen(game)}
-                sx={{ marginTop: 1 }}
+                sx={{
+                  marginTop: 1,
+                  backgroundColor: 'black',
+                  color: 'white',
+                  '&:hover': {
+                    backgroundColor: 'gray',
+                    color: 'black',
+                  },
+                }}
               >
-                Add new Offer
+                Добавить новое предложение
               </Button>
             )}
           </Box>
         </Box>
       </Card>
+
       <Dialog open={!!modal} onClose={handleClose}>
-        <DialogTitle>Выберете платформу</DialogTitle>
+        <DialogTitle>Выберите платформу:</DialogTitle>
         <DialogContent>
           <form id="my-form" onSubmit={handleSubmit}>
             <FormControl>
@@ -177,7 +215,7 @@ export default function OneGameDetailed(): JSX.Element {
                 autoFocus
                 margin="dense"
                 name="price"
-                label="Введите цену в $"
+                label="Введите цену в рублях"
                 type="number"
                 fullWidth
               />

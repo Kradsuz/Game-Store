@@ -1,22 +1,22 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import OneOffer from '../OneOffer';
-import type { DbGameType, DBOfferType } from '../../../types';
+import type { DbGameType, DBOfferType, ImagesType } from '../../../types';
 
 type PropsType = {
-    sellerData: DbGameType
-}
+  sellerData: DbGameType;
+};
 
-export default function SellerOffers({sellerData}: PropsType): JSX.Element {
-
-
+function SellerOffers({ sellerData }: PropsType): JSX.Element {
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={6}>
-        {sellerData?.Offers?.map((el:DBOfferType) => (
-          <OneOffer key={el.id} offer={el} />
-        ))}
-      </Grid>
+      {sellerData?.Offers?.map((offer: DBOfferType) => (
+        <Grid item key={offer.id} xs={12} md={6}>
+          <OneOffer offer={offer} />
+        </Grid>
+      ))}
     </Grid>
   );
 }
+
+export default SellerOffers;
